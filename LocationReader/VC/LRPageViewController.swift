@@ -21,10 +21,6 @@ struct LRTextConfig {
 class LRPageViewController: UIPageViewController {
 
     var textArray = [[LRPageModel]]()
-    var currentIndex = IndexPath(row: 0, section: 0)
-    var oldIndex = IndexPath(row: 0, section: 0)
-    var willIndex = IndexPath(row: 0, section: 0)
-    
     var textConfig = LRTextConfig()
     
     let TextKey = "TextKey"
@@ -45,7 +41,7 @@ class LRPageViewController: UIPageViewController {
         chapters = getChapters()
         popChapters()
 
-        let bookVC = setupBookVC(at: currentIndex)
+        let bookVC = setupBookVC(at: IndexPath(row: 0, section: 0))
         self.setViewControllers([bookVC], direction: .forward, animated: true, completion: nil)
         
         addTap()
@@ -185,6 +181,7 @@ class LRPageViewController: UIPageViewController {
         
         bookVC.pageModel = textArray[indexPath.section][indexPath.row]
         bookVC.textConfig = textConfig
+        bookVC.indexPath = indexPath
         return bookVC
     }
     
@@ -204,10 +201,14 @@ class LRPageViewController: UIPageViewController {
 extension LRPageViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
+        let bookVC = viewController as! LRBooKViewController
+        let currentIndex = bookVC.indexPath!
+        
+        
         if currentIndex.section == 0, currentIndex.row == 0 {
             return nil
         }else {
-            oldIndex = currentIndex
+            var willIndex: IndexPath
             if currentIndex.row == 0 {
                 let count = textArray[currentIndex.section-1].count
                 willIndex = IndexPath(row: count-1, section: currentIndex.section-1)
@@ -221,12 +222,13 @@ extension LRPageViewController: UIPageViewControllerDataSource, UIPageViewContro
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        let bookVC = viewController as! LRBooKViewController
+        let currentIndex = bookVC.indexPath!
         
         if currentIndex.section >= textArray.count-1, currentIndex.row >= textArray[currentIndex.section].count-1 {
             return nil
         }else {
-            oldIndex = currentIndex
-            
+            var willIndex: IndexPath
             if currentIndex.row == textArray[currentIndex.section].count-1 {
                 willIndex = IndexPath(row: 0, section: currentIndex.section+1)
             }else {
@@ -239,20 +241,22 @@ extension LRPageViewController: UIPageViewControllerDataSource, UIPageViewContro
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        self.view.isUserInteractionEnabled = false
+//        self.view.isUserInteractionEnabled = false
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if finished {
-            self.view.isUserInteractionEnabled = true
+//            self.view.isUserInteractionEnabled = true
         }
         
         if !completed {
-            currentIndex = oldIndex
+//            currentIndex = oldIndex
         }else {
-            currentIndex = willIndex
+//            currentIndex = willIndex
             DispatchQueue.global().async {
-                if self.currentIndex.section == self.textArray.count-1 {
+                let bookVC = previousViewControllers.first as! LRBooKViewController
+                let currentIndex = bookVC.indexPath!
+                if currentIndex.section == self.textArray.count-1 {
                     self.popChapters()
                 }
             }

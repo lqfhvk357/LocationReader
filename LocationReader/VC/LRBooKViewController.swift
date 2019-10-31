@@ -22,7 +22,7 @@ class LRBooKViewController: UIViewController {
     
     var textConfig: LRTextConfig? = nil
     var pageModel: LRPageModel?
-//    var index = IndexPath?
+    var indexPath: IndexPath?
     
     
     override func viewDidLoad() {
