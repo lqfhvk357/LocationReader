@@ -11,7 +11,7 @@ import CoreFoundation
 
 
 
-class BooKViewController: UIViewController {
+class LRBooKViewController: UIViewController {
     
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var chaptersLabel: UILabel!
@@ -19,12 +19,11 @@ class BooKViewController: UIViewController {
     @IBOutlet weak var pageLabel: UILabel!
     @IBOutlet weak var backImageView: UIImageView!
     
-//    override var prefersStatusBarHidden: Bool {
-//        return true
-//    }
     
-    var text = NSAttributedString(string: "")
     var textConfig: LRTextConfig? = nil
+    var pageModel: LRPageModel?
+//    var index = IndexPath?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,11 +37,15 @@ class BooKViewController: UIViewController {
     }
 
     func setup() {
-        textView.attributedText = text
+        if let pageModel = pageModel {
+            textView.attributedText = pageModel.text
+            pageLabel.text = pageModel.page
+            chaptersLabel.text = pageModel.chapter
+        }
         
         if let textConfig = textConfig {
             textView.textColor = textConfig.color
-            textView.font = textConfig.font
+//            textView.font = textConfig.font
             backImageView.image = textConfig.backImage
             backImageView.backgroundColor = textConfig.backColor
         }
@@ -55,5 +58,5 @@ class BooKViewController: UIViewController {
     }
 }
 
-extension BooKViewController: UIGestureRecognizerDelegate {}
+extension LRBooKViewController: UIGestureRecognizerDelegate {}
 

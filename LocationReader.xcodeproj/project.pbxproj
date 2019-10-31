@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		4385636223672B01007D055D /* LRPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4385636123672B01007D055D /* LRPageViewController.swift */; };
 		4385636423682507007D055D /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4385636323682507007D055D /* Const.swift */; };
+		438563682369BFD9007D055D /* LRPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438563672369BFD9007D055D /* LRPageModel.swift */; };
 		439CC1D823669ED100978E9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CC1D723669ED100978E9F /* AppDelegate.swift */; };
 		439CC1DA23669ED100978E9F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CC1D923669ED100978E9F /* SceneDelegate.swift */; };
-		439CC1DC23669ED100978E9F /* BooKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CC1DB23669ED100978E9F /* BooKViewController.swift */; };
+		439CC1DC23669ED100978E9F /* LRBooKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CC1DB23669ED100978E9F /* LRBooKViewController.swift */; };
 		439CC1DF23669ED100978E9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 439CC1DD23669ED100978E9F /* Main.storyboard */; };
 		439CC1E123669ED500978E9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439CC1E023669ED500978E9F /* Assets.xcassets */; };
 		439CC1E423669ED500978E9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 439CC1E223669ED500978E9F /* LaunchScreen.storyboard */; };
@@ -26,10 +27,11 @@
 /* Begin PBXFileReference section */
 		4385636123672B01007D055D /* LRPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRPageViewController.swift; sourceTree = "<group>"; };
 		4385636323682507007D055D /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
+		438563672369BFD9007D055D /* LRPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRPageModel.swift; sourceTree = "<group>"; };
 		439CC1D423669ED100978E9F /* LocationReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocationReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		439CC1D723669ED100978E9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		439CC1D923669ED100978E9F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		439CC1DB23669ED100978E9F /* BooKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooKViewController.swift; sourceTree = "<group>"; };
+		439CC1DB23669ED100978E9F /* LRBooKViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRBooKViewController.swift; sourceTree = "<group>"; };
 		439CC1DE23669ED100978E9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		439CC1E023669ED500978E9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		439CC1E323669ED500978E9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -53,6 +55,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		438563662369BFAC007D055D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				438563672369BFD9007D055D /* LRPageModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		439CC1CB23669ED100978E9F = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +82,7 @@
 		439CC1D623669ED100978E9F /* LocationReader */ = {
 			isa = PBXGroup;
 			children = (
+				438563662369BFAC007D055D /* Model */,
 				439CC2C32366C9A000978E9F /* VC */,
 				439CC2C02366BCFC00978E9F /* View */,
 				439CC1EB2366A3C900978E9F /* 水浒传.txt */,
@@ -101,7 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				439CC2C42366C9D700978E9F /* LRBookshelfViewController.swift */,
-				439CC1DB23669ED100978E9F /* BooKViewController.swift */,
+				439CC1DB23669ED100978E9F /* LRBooKViewController.swift */,
 				4385636123672B01007D055D /* LRPageViewController.swift */,
 			);
 			path = VC;
@@ -182,7 +193,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				439CC1DC23669ED100978E9F /* BooKViewController.swift in Sources */,
+				439CC1DC23669ED100978E9F /* LRBooKViewController.swift in Sources */,
+				438563682369BFD9007D055D /* LRPageModel.swift in Sources */,
 				439CC2BF2366BCF300978E9F /* LRTimeLabel.swift in Sources */,
 				439CC1D823669ED100978E9F /* AppDelegate.swift in Sources */,
 				439CC1DA23669ED100978E9F /* SceneDelegate.swift in Sources */,
