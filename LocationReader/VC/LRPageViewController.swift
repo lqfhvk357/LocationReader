@@ -24,7 +24,7 @@ class LRPageViewController: UIPageViewController {
     var textArray = [String:[LRPageModel]]()
     var textConfig = LRTextConfig()
 
-    let TextKey = "TextKey"
+    let TextRangeKey = "TextRangeKey"
     let TitleKey = "TitleKey"
     var chapters = [[String:String]]()
     
@@ -64,60 +64,67 @@ class LRPageViewController: UIPageViewController {
         let filePath = Bundle.main.path(forResource: bookName, ofType: "txt")!
 //        let encoding = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
         let encoding = String.Encoding.utf8.rawValue
-        
-//
-//        let chaptersPath = "\(documentsPath)/\(bookName)_chapters.plist"
-//        let fm = FileManager.default
-//        if fm.fileExists(atPath: chaptersPath) {
-//            let chaptersUrl = URL(fileURLWithPath: chaptersPath)
-//            let array = NSArray(contentsOf: chaptersUrl)
-//            if let array = array, let dictArray = Array(array) as? [[String : String]] {
-//                return dictArray
-//            }
-//        }
+        let content = try? String(contentsOfFile: filePath, encoding: String.Encoding(rawValue: encoding))
+        if content == nil {
+            return []
+        }
+        contentString = NSString(string: content!)
+
+        let chaptersPath = "\(documentsPath)/\(bookName)_chapters.plist"
+        let fm = FileManager.default
+        if fm.fileExists(atPath: chaptersPath) {
+            print(Date())
+            let chaptersUrl = URL(fileURLWithPath: chaptersPath)
+            let array = NSArray(contentsOf: chaptersUrl)
+            print(Date())
+            if let array = array, let dictArray = Array(array) as? [[String : String]] {
+                return dictArray
+            }
+        }
         
         
         var datas = [[String:String]]()
         
-        if let content = try? String(contentsOfFile: filePath, encoding: String.Encoding(rawValue: encoding)) {
-            contentString = NSString(string: content)
-            let pattern = "\n[序第][\\d\\u4e00-\\u9fa5]{0,8}[章回]\\s+\\S+"
-            let reg = try! NSRegularExpression(pattern: pattern, options: [])
-            let results = reg.matches(in: content, options: [], range: NSRange(location: 0, length: contentString.length))
-            
-            let sum = results.count
-            var i = 0
-            for result in results {
-                let location = result.range.location
-                var length = 0
-                if i + 1 < sum {
-                    length = results[i+1].range.location - location
-                }else {
-                    length = contentString.length - location
-                }
-                let text = contentString.substring(with: NSRange(location: location, length: length))
-                var title = contentString.substring(with: result.range)
-                print(title)
-                title = title.trimmingCharacters(in: .whitespacesAndNewlines)
-                title = title.replacingOccurrences(of: "\n", with: " ")
-                title = title.replacingOccurrences(of: "\r", with: " ")
-                let dict = [TextKey: text, TitleKey: title]
-                datas.append(dict)
-                
-                i = i + 1
+        print(Date())
+        let pattern = "\n[序第][\\d\\u4e00-\\u9fa5]{0,8}[章回]\\s+\\S+"
+        let reg = try! NSRegularExpression(pattern: pattern, options: [])
+        let results = reg.matches(in: content!, options: [], range: NSRange(location: 0, length: contentString.length))
+        
+        let sum = results.count
+        var i = 0
+        for result in results {
+            let location = result.range.location
+            var length = 0
+            if i + 1 < sum {
+                length = results[i+1].range.location - location
+            }else {
+                length = contentString.length - location
             }
+            let textRange = NSRange(location: location, length: length)
+            var title = contentString.substring(with: result.range)
+
+            title = title.trimmingCharacters(in: .whitespacesAndNewlines)
+            title = title.replacingOccurrences(of: "\n", with: " ")
+            title = title.replacingOccurrences(of: "\r", with: " ")
+            let dict = [TextRangeKey: NSStringFromRange(textRange), TitleKey: title]
+            datas.append(dict)
+            
+            i = i + 1
         }
-//
-//        let nsArr = NSArray(array: datas)
-//        print(chaptersPath)
-//        nsArr.write(toFile: chaptersPath, atomically: true)
-//
+        
+        print(Date())
+        
+        let nsArr = NSArray(array: datas)
+        print(chaptersPath)
+        nsArr.write(toFile: chaptersPath, atomically: true)
         
         return datas
     }
     
     func getPages(for textDict: [String:String]) -> [LRPageModel] {
-        let text = textDict[TextKey]!
+        let rangeString = textDict[TextRangeKey]!
+        let range = NSRangeFromString(rangeString)
+        let text = contentString.substring(with: range)
         let textStorage = NSTextStorage(string: text)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 2
