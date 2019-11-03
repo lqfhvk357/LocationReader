@@ -19,6 +19,8 @@ class LRBooKViewController: UIViewController {
     @IBOutlet weak var pageLabel: UILabel!
     @IBOutlet weak var backImageView: UIImageView!
     
+    @IBOutlet weak var topHeightConstraint: NSLayoutConstraint!
+    
     
     var textConfig: LRTextConfig? = nil
     var pageModel: LRPageModel?
@@ -37,6 +39,7 @@ class LRBooKViewController: UIViewController {
     }
 
     func setup() {
+        topHeightConstraint.constant = topMargin
         if let pageModel = pageModel {
             textView.attributedText = pageModel.text
             pageLabel.text = pageModel.page

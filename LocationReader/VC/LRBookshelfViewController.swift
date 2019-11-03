@@ -44,8 +44,6 @@ extension LRBookshelfViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let vc = BooKViewController()
-//        self.navigationController?.pushViewController(vc, animated: true)
-        self.performSegue(withIdentifier: "PushToPage", sender: nil)
+        self.performSegue(withIdentifier: "PushToPageRoot", sender: nil)
     }
 }

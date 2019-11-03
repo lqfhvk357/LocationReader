@@ -13,74 +13,74 @@ struct LRTextConfig {
     var font: UIFont = UIFont(name: "PingFangTC-Regular", size: 16)!
 //    var font: UIFont = .systemFont(ofSize: 16)!
     var backImage: UIImage? = nil
-//        UIImage(named: "Miso(1347)0032.jpg")
+//    var backImage: UIImage? = UIImage(named: "Miso(1347)0032.jpg")
     var backColor: UIColor = .white
+    
 }
 
 
 class LRPageViewController: UIPageViewController {
-
-    var textArray = [[LRPageModel]]()
-    var textConfig = LRTextConfig()
     
+    var textArray = [String:[LRPageModel]]()
+    var textConfig = LRTextConfig()
+
     let TextKey = "TextKey"
     let TitleKey = "TitleKey"
     var chapters = [[String:String]]()
     
-    let topMargin = CGFloat(ScreenHeight<810 ? 32 : 77)
-    let bottomMargin = CGFloat(ScreenHeight<810 ? 32 : 66)
+    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
     
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
+    var contentString: NSString = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
         self.delegate = self
         chapters = getChapters()
-        popChapters()
-
+        popChapters(at: 0)
+        
+//        let workItem = DispatchWorkItem {
+//            for i in 1..<self.chapters.count {
+//                self.popChapters(at: i)
+//            }
+//        }
+//        DispatchQueue.global().async(execute: workItem)
+//        self.workItem = workItem
+        
         let bookVC = setupBookVC(at: IndexPath(row: 0, section: 0))
         self.setViewControllers([bookVC], direction: .forward, animated: true, completion: nil)
-        
-        addTap()
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    deinit {
+        
+        print("\(self) doalloc")
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    // MARK: - Event
-    func addTap() {
-        let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapView))
-        self.view.addGestureRecognizer(tap)
-    }
-    
-    @objc func tapView() {
-        print("tap")
-    }
-    
-    
     
     // MARK: - DATA
     func getChapters() -> [[String:String]] {
-        let filePath = Bundle.main.path(forResource: "水浒传", ofType: "txt")!
-        let encoding = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
+        let bookName = "all"
+        let filePath = Bundle.main.path(forResource: bookName, ofType: "txt")!
+//        let encoding = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
+        let encoding = String.Encoding.utf8.rawValue
+        
+//
+//        let chaptersPath = "\(documentsPath)/\(bookName)_chapters.plist"
+//        let fm = FileManager.default
+//        if fm.fileExists(atPath: chaptersPath) {
+//            let chaptersUrl = URL(fileURLWithPath: chaptersPath)
+//            let array = NSArray(contentsOf: chaptersUrl)
+//            if let array = array, let dictArray = Array(array) as? [[String : String]] {
+//                return dictArray
+//            }
+//        }
+        
         
         var datas = [[String:String]]()
         
         if let content = try? String(contentsOfFile: filePath, encoding: String.Encoding(rawValue: encoding)) {
-            
-            let contentString = NSString(string: content)
-            
+            contentString = NSString(string: content)
             let pattern = "\n[序第][\\d\\u4e00-\\u9fa5]{0,8}[章回]\\s+\\S+"
             let reg = try! NSRegularExpression(pattern: pattern, options: [])
             let results = reg.matches(in: content, options: [], range: NSRange(location: 0, length: contentString.length))
@@ -107,6 +107,12 @@ class LRPageViewController: UIPageViewController {
                 i = i + 1
             }
         }
+//
+//        let nsArr = NSArray(array: datas)
+//        print(chaptersPath)
+//        nsArr.write(toFile: chaptersPath, atomically: true)
+//
+        
         return datas
     }
     
@@ -142,7 +148,6 @@ class LRPageViewController: UIPageViewController {
                 }
                 break
             }
-//            let pageText = textStorage.attributedSubstring(from: range)
             let textString = NSString(string: text)
             let pageString = textString.substring(with: range)
             let pageText = NSAttributedString(string: pageString, attributes: attributes)
@@ -167,19 +172,22 @@ class LRPageViewController: UIPageViewController {
         return height
     }
     
-    func popChapters() {
-        if chapters.count == 0 {
+    func popChapters(at index: Int) {
+        if chapters.count <= index {
             return
         }
-        let fc = chapters.remove(at: 0)
-        textArray.append(getPages(for: fc))
+        if textArray["\(index)"] != nil {
+            return
+        }
+        let fc = chapters[index]
+        textArray["\(index)"] = getPages(for: fc)
     }
     
     // MARK: - View
     func setupBookVC(at indexPath: IndexPath) -> LRBooKViewController {
         let bookVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BooKVC") as! LRBooKViewController
         
-        bookVC.pageModel = textArray[indexPath.section][indexPath.row]
+        bookVC.pageModel = textArray["\(indexPath.section)"]![indexPath.row]
         bookVC.textConfig = textConfig
         bookVC.indexPath = indexPath
         return bookVC
@@ -210,7 +218,8 @@ extension LRPageViewController: UIPageViewControllerDataSource, UIPageViewContro
         }else {
             var willIndex: IndexPath
             if currentIndex.row == 0 {
-                let count = textArray[currentIndex.section-1].count
+                popChapters(at: currentIndex.section-1)
+                let count = textArray["\(currentIndex.section-1)"]!.count
                 willIndex = IndexPath(row: count-1, section: currentIndex.section-1)
             }else {
                 willIndex = IndexPath(row: currentIndex.row-1, section: currentIndex.section)
@@ -225,11 +234,12 @@ extension LRPageViewController: UIPageViewControllerDataSource, UIPageViewContro
         let bookVC = viewController as! LRBooKViewController
         let currentIndex = bookVC.indexPath!
         
-        if currentIndex.section >= textArray.count-1, currentIndex.row >= textArray[currentIndex.section].count-1 {
+        if currentIndex.section >= chapters.count-1, currentIndex.row >= textArray["\(currentIndex.section)"]!.count-1 {
             return nil
         }else {
             var willIndex: IndexPath
-            if currentIndex.row == textArray[currentIndex.section].count-1 {
+            if currentIndex.row == textArray["\(currentIndex.section)"]!.count-1 {
+                popChapters(at: currentIndex.section+1)
                 willIndex = IndexPath(row: 0, section: currentIndex.section+1)
             }else {
                 willIndex = IndexPath(row: currentIndex.row+1, section: currentIndex.section)
@@ -247,19 +257,6 @@ extension LRPageViewController: UIPageViewControllerDataSource, UIPageViewContro
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if finished {
 //            self.view.isUserInteractionEnabled = true
-        }
-        
-        if !completed {
-//            currentIndex = oldIndex
-        }else {
-//            currentIndex = willIndex
-            DispatchQueue.global().async {
-                let bookVC = previousViewControllers.first as! LRBooKViewController
-                let currentIndex = bookVC.indexPath!
-                if currentIndex.section == self.textArray.count-1 {
-                    self.popChapters()
-                }
-            }
         }
     }
 }

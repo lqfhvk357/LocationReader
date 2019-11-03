@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -108,6 +108,10 @@
 		430A3DCD236B1A0100E9615D /* 18.txt in Resources */ = {isa = PBXBuildFile; fileRef = 430A3D68236B1A0100E9615D /* 18.txt */; };
 		430A3DCE236B1A0100E9615D /* 24.txt in Resources */ = {isa = PBXBuildFile; fileRef = 430A3D69236B1A0100E9615D /* 24.txt */; };
 		430A3DCF236B1A0100E9615D /* 30.txt in Resources */ = {isa = PBXBuildFile; fileRef = 430A3D6A236B1A0100E9615D /* 30.txt */; };
+		430A3DD1236BBDA100E9615D /* LRPageRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A3DD0236BBDA100E9615D /* LRPageRootViewController.swift */; };
+		430A3DD3236C40C400E9615D /* LRSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A3DD2236C40C400E9615D /* LRSettingButton.swift */; };
+		430A3DD6236C6A9000E9615D /* LRDirectoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A3DD4236C6A9000E9615D /* LRDirectoryCell.swift */; };
+		430A3DD7236C6A9000E9615D /* LRDirectoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 430A3DD5236C6A9000E9615D /* LRDirectoryCell.xib */; };
 		4385636223672B01007D055D /* LRPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4385636123672B01007D055D /* LRPageViewController.swift */; };
 		4385636423682507007D055D /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4385636323682507007D055D /* Const.swift */; };
 		438563682369BFD9007D055D /* LRPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438563672369BFD9007D055D /* LRPageModel.swift */; };
@@ -118,11 +122,13 @@
 		439CC1E123669ED500978E9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439CC1E023669ED500978E9F /* Assets.xcassets */; };
 		439CC1E423669ED500978E9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 439CC1E223669ED500978E9F /* LaunchScreen.storyboard */; };
 		439CC1EC2366A3C900978E9F /* 水浒传.txt in Resources */ = {isa = PBXBuildFile; fileRef = 439CC1EB2366A3C900978E9F /* 水浒传.txt */; };
-		439CC2BD2366AE0100978E9F /* 01.txt in Resources */ = {isa = PBXBuildFile; fileRef = 439CC2BC2366AE0100978E9F /* 01.txt */; };
 		439CC2BF2366BCF300978E9F /* LRTimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CC2BE2366BCF300978E9F /* LRTimeLabel.swift */; };
 		439CC2C22366C43500978E9F /* Miso(1347)0032.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 439CC2C12366C43500978E9F /* Miso(1347)0032.jpg */; };
 		439CC2C52366C9D700978E9F /* LRBookshelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CC2C42366C9D700978E9F /* LRBookshelfViewController.swift */; };
 		439CC2C72366CB0E00978E9F /* UIKit+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CC2C62366CB0E00978E9F /* UIKit+Extension.swift */; };
+		43E1C992236C849800E88A35 /* 7922.txt in Resources */ = {isa = PBXBuildFile; fileRef = 43E1C991236C849800E88A35 /* 7922.txt */; };
+		43E1C994236C86ED00E88A35 /* all.txt in Resources */ = {isa = PBXBuildFile; fileRef = 43E1C993236C86ED00E88A35 /* all.txt */; };
+		DC54B3C66B9CEA9C96FA6EB3 /* Pods_LocationReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11D60504BF0EAA884007EEB /* Pods_LocationReader.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -227,6 +233,10 @@
 		430A3D68236B1A0100E9615D /* 18.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 18.txt; sourceTree = "<group>"; };
 		430A3D69236B1A0100E9615D /* 24.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 24.txt; sourceTree = "<group>"; };
 		430A3D6A236B1A0100E9615D /* 30.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 30.txt; sourceTree = "<group>"; };
+		430A3DD0236BBDA100E9615D /* LRPageRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRPageRootViewController.swift; sourceTree = "<group>"; };
+		430A3DD2236C40C400E9615D /* LRSettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRSettingButton.swift; sourceTree = "<group>"; };
+		430A3DD4236C6A9000E9615D /* LRDirectoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRDirectoryCell.swift; sourceTree = "<group>"; };
+		430A3DD5236C6A9000E9615D /* LRDirectoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LRDirectoryCell.xib; sourceTree = "<group>"; };
 		4385636123672B01007D055D /* LRPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRPageViewController.swift; sourceTree = "<group>"; };
 		4385636323682507007D055D /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		438563672369BFD9007D055D /* LRPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRPageModel.swift; sourceTree = "<group>"; };
@@ -239,11 +249,15 @@
 		439CC1E323669ED500978E9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		439CC1E523669ED500978E9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		439CC1EB2366A3C900978E9F /* 水浒传.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "水浒传.txt"; sourceTree = "<group>"; };
-		439CC2BC2366AE0100978E9F /* 01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 01.txt; sourceTree = "<group>"; };
 		439CC2BE2366BCF300978E9F /* LRTimeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRTimeLabel.swift; sourceTree = "<group>"; };
 		439CC2C12366C43500978E9F /* Miso(1347)0032.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Miso(1347)0032.jpg"; sourceTree = "<group>"; };
 		439CC2C42366C9D700978E9F /* LRBookshelfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRBookshelfViewController.swift; sourceTree = "<group>"; };
 		439CC2C62366CB0E00978E9F /* UIKit+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Extension.swift"; sourceTree = "<group>"; };
+		43E1C991236C849800E88A35 /* 7922.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 7922.txt; sourceTree = "<group>"; };
+		43E1C993236C86ED00E88A35 /* all.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = all.txt; sourceTree = "<group>"; };
+		9BEC8CCD6081646B3E27A012 /* Pods-LocationReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocationReader.debug.xcconfig"; path = "Target Support Files/Pods-LocationReader/Pods-LocationReader.debug.xcconfig"; sourceTree = "<group>"; };
+		C7F329CE5DAF765B5E54E513 /* Pods-LocationReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocationReader.release.xcconfig"; path = "Target Support Files/Pods-LocationReader/Pods-LocationReader.release.xcconfig"; sourceTree = "<group>"; };
+		F11D60504BF0EAA884007EEB /* Pods_LocationReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LocationReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +265,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC54B3C66B9CEA9C96FA6EB3 /* Pods_LocationReader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +394,8 @@
 			children = (
 				439CC1D623669ED100978E9F /* LocationReader */,
 				439CC1D523669ED100978E9F /* Products */,
+				B76DC7F95ABEBE28CFE6D42E /* Pods */,
+				E8878899A9C528C215688113 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -397,7 +414,8 @@
 				439CC2C32366C9A000978E9F /* VC */,
 				439CC2C02366BCFC00978E9F /* View */,
 				439CC1EB2366A3C900978E9F /* 水浒传.txt */,
-				439CC2BC2366AE0100978E9F /* 01.txt */,
+				43E1C991236C849800E88A35 /* 7922.txt */,
+				43E1C993236C86ED00E88A35 /* all.txt */,
 				439CC1D723669ED100978E9F /* AppDelegate.swift */,
 				4385636323682507007D055D /* Const.swift */,
 				439CC2C62366CB0E00978E9F /* UIKit+Extension.swift */,
@@ -415,6 +433,9 @@
 			children = (
 				439CC2BE2366BCF300978E9F /* LRTimeLabel.swift */,
 				439CC2C12366C43500978E9F /* Miso(1347)0032.jpg */,
+				430A3DD2236C40C400E9615D /* LRSettingButton.swift */,
+				430A3DD4236C6A9000E9615D /* LRDirectoryCell.swift */,
+				430A3DD5236C6A9000E9615D /* LRDirectoryCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -425,8 +446,26 @@
 				439CC2C42366C9D700978E9F /* LRBookshelfViewController.swift */,
 				439CC1DB23669ED100978E9F /* LRBooKViewController.swift */,
 				4385636123672B01007D055D /* LRPageViewController.swift */,
+				430A3DD0236BBDA100E9615D /* LRPageRootViewController.swift */,
 			);
 			path = VC;
+			sourceTree = "<group>";
+		};
+		B76DC7F95ABEBE28CFE6D42E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9BEC8CCD6081646B3E27A012 /* Pods-LocationReader.debug.xcconfig */,
+				C7F329CE5DAF765B5E54E513 /* Pods-LocationReader.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E8878899A9C528C215688113 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F11D60504BF0EAA884007EEB /* Pods_LocationReader.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,9 +475,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 439CC1E823669ED500978E9F /* Build configuration list for PBXNativeTarget "LocationReader" */;
 			buildPhases = (
+				400D4BA1283EC5AD715D68B0 /* [CP] Check Pods Manifest.lock */,
 				439CC1D023669ED100978E9F /* Sources */,
 				439CC1D123669ED100978E9F /* Frameworks */,
 				439CC1D223669ED100978E9F /* Resources */,
+				B28D75C395D12647C0DB038A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -504,7 +545,6 @@
 				430A3DBA236B1A0100E9615D /* 47.txt in Resources */,
 				430A3DB1236B1A0100E9615D /* 78.txt in Resources */,
 				430A3DA9236B1A0100E9615D /* 69.txt in Resources */,
-				439CC2BD2366AE0100978E9F /* 01.txt in Resources */,
 				430A3D8A236B1A0100E9615D /* 60.txt in Resources */,
 				430A3DAE236B1A0100E9615D /* 92.txt in Resources */,
 				439CC1E423669ED500978E9F /* LaunchScreen.storyboard in Resources */,
@@ -531,6 +571,7 @@
 				430A3DBB236B1A0100E9615D /* 53.txt in Resources */,
 				430A3DB7236B1A0100E9615D /* 85.txt in Resources */,
 				430A3DC3236B1A0100E9615D /* 37.txt in Resources */,
+				43E1C994236C86ED00E88A35 /* all.txt in Resources */,
 				430A3DC0236B1A0100E9615D /* 35.txt in Resources */,
 				430A3D7A236B1A0100E9615D /* 10.txt in Resources */,
 				430A3D6C236B1A0100E9615D /* 15.txt in Resources */,
@@ -539,6 +580,7 @@
 				430A3D90236B1A0100E9615D /* 71.txt in Resources */,
 				430A3D7E236B1A0100E9615D /* 05.txt in Resources */,
 				430A3D77236B1A0100E9615D /* 13.txt in Resources */,
+				43E1C992236C849800E88A35 /* 7922.txt in Resources */,
 				430A3D7B236B1A0100E9615D /* 04.txt in Resources */,
 				430A3DC5236B1A0100E9615D /* 22.txt in Resources */,
 				430A3D9D236B1A0100E9615D /* 95.txt in Resources */,
@@ -577,6 +619,7 @@
 				430A3DB2236B1A0100E9615D /* 50.txt in Resources */,
 				430A3D70236B1A0100E9615D /* 14.txt in Resources */,
 				430A3D91236B1A0100E9615D /* 65.txt in Resources */,
+				430A3DD7236C6A9000E9615D /* LRDirectoryCell.xib in Resources */,
 				430A3DBF236B1A0100E9615D /* 21.txt in Resources */,
 				430A3D7F236B1A0100E9615D /* 11.txt in Resources */,
 				430A3DA6236B1A0100E9615D /* 82.txt in Resources */,
@@ -600,6 +643,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		400D4BA1283EC5AD715D68B0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LocationReader-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B28D75C395D12647C0DB038A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LocationReader/Pods-LocationReader-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LocationReader/Pods-LocationReader-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LocationReader/Pods-LocationReader-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		439CC1D023669ED100978E9F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -610,10 +695,13 @@
 				439CC2BF2366BCF300978E9F /* LRTimeLabel.swift in Sources */,
 				439CC1D823669ED100978E9F /* AppDelegate.swift in Sources */,
 				439CC1DA23669ED100978E9F /* SceneDelegate.swift in Sources */,
+				430A3DD1236BBDA100E9615D /* LRPageRootViewController.swift in Sources */,
 				4385636223672B01007D055D /* LRPageViewController.swift in Sources */,
 				4385636423682507007D055D /* Const.swift in Sources */,
+				430A3DD3236C40C400E9615D /* LRSettingButton.swift in Sources */,
 				439CC2C72366CB0E00978E9F /* UIKit+Extension.swift in Sources */,
 				439CC2C52366C9D700978E9F /* LRBookshelfViewController.swift in Sources */,
+				430A3DD6236C6A9000E9615D /* LRDirectoryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -755,6 +843,7 @@
 		};
 		439CC1E923669ED500978E9F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BEC8CCD6081646B3E27A012 /* Pods-LocationReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -773,6 +862,7 @@
 		};
 		439CC1EA23669ED500978E9F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7F329CE5DAF765B5E54E513 /* Pods-LocationReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

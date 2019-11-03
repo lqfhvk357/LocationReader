@@ -1,0 +1,6 @@
+framework module Pods_LocationReader {
+  umbrella header "Pods-LocationReader-umbrella.h"
+
+  export *
+  module * { export * }
+}

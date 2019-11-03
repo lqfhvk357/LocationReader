@@ -17,6 +17,8 @@ let ScreenWidth = UIScreen.main.bounds.width
 let ScreenHeight = UIScreen.main.bounds.height
 let NavBarHeight = CGFloat(ScreenHeight<810 ? 64 : 88)
 let TabBarHeight = CGFloat(ScreenHeight<810 ? 49 : 83)
+let topMargin = CGFloat(ScreenHeight<810 ? 32 : 77)
+let bottomMargin = CGFloat(ScreenHeight<810 ? 32 : 66)
 
 /// keys of userDefaults
 let KHomeTitlesKey = "KHomeTitlesKey"
