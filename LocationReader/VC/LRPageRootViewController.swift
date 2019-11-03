@@ -12,6 +12,7 @@ import UIKit
 let DirectoryViewWidth: CGFloat = 268
 let DirectoryTopHeight = CGFloat(ScreenHeight<810 ? 16 : 49)
 
+
 class LRPageRootViewController: UIViewController {
 
     @IBOutlet weak var handleView: UIView!
@@ -36,6 +37,9 @@ class LRPageRootViewController: UIViewController {
             updateHandleHidden(isHedden: ishiddenHandleView)
         }
     }
+    
+    var bookName: String? = nil
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -77,6 +81,7 @@ class LRPageRootViewController: UIViewController {
     func setup() {
         let pageVC = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(withIdentifier: "pageVC") as! LRPageViewController
+        pageVC.bookName = bookName
         self.addChild(pageVC)
         self.view.insertSubview(pageVC.view, at: 0)
         pageVC.view.frame = self.view.bounds
@@ -139,6 +144,30 @@ class LRPageRootViewController: UIViewController {
     // top
     @IBAction func back(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+        
+        guard let currentIndexKey = IndexPathKey(for: bookName) else {
+            return
+        }
+        
+        let pageVC = self.children.first as! LRPageViewController
+        guard let bookVC = pageVC.children.first as? LRBooKViewController else {
+            return
+        }
+        let dict = dictionaryFrom(indexPath: bookVC.indexPath!)
+        UserDefaults.standard.set(dict, forKey: currentIndexKey)
+        
+    }
+    
+    func IndexPathKey(for bookName: String?) -> String? {
+        guard let bookName = bookName else {
+            return nil
+        }
+        return "\(bookName)_currentPage"
+    }
+    
+    func dictionaryFrom(indexPath: IndexPath) -> Dictionary<String,Int> {
+        let dict = ["section":indexPath.section, "row":indexPath.row]
+        return dict
     }
     
     //bottom
