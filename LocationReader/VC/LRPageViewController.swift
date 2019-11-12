@@ -9,14 +9,57 @@
 import UIKit
 
 struct LRTextConfig {
-    var color: UIColor = .black
     var font: UIFont = UIFont(name: "PingFangTC-Regular", size: 16)!
 //    var font: UIFont = .systemFont(ofSize: 16)!
-    var backImage: UIImage? = nil
-//    var backImage: UIImage? = UIImage(named: "Miso(1347)0032.jpg")
-    var backColor: UIColor = .white
+    
+    var mode: Mode = .dayMode0 {
+        didSet {
+            oldMode = oldValue
+        }
+    }
+    
+    var oldMode: Mode?
     
 }
+
+class Mode {
+    let color: UIColor
+    let backColor: UIColor
+    let backImage: UIImage?
+    //    var backImage: UIImage? = UIImage(named: "Miso(1347)0032.jpg")
+    
+    init(color: UIColor, backColor: UIColor, backImage: UIImage? = nil) {
+        self.color = color
+        self.backColor = backColor
+        self.backImage = backImage
+    }
+    
+    class var darkMode: Mode {
+        return Mode(color: .init(0x8a8a8a), backColor: .init(0x333333))
+    }
+    
+    
+    class var dayMode0: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xe4cca4))
+    }
+    class var dayMode1: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xf7efcf))
+    }
+    class var dayMode2: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xc8d6e1))
+    }
+    class var dayMode3: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xefdfd8))
+    }
+    class var dayMode4: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xd1dcc8))
+    }
+    
+    class var dayMode5: Mode {
+        return .darkMode
+    }
+}
+
 
 
 class LRPageViewController: UIPageViewController {
@@ -157,7 +200,7 @@ class LRPageViewController: UIPageViewController {
         let attributes:[NSAttributedString.Key: Any] = [
             .paragraphStyle: paragraphStyle,
             .font: textConfig.font,
-            .foregroundColor: textConfig.color
+            .foregroundColor: textConfig.mode.color
         ]
         textStorage.setAttributes(attributes, range: NSRange(location: 0, length: text.count))
         let layoutM = NSLayoutManager()
@@ -165,8 +208,8 @@ class LRPageViewController: UIPageViewController {
         
         let lineH = getOneLineHeight(with: "超哥", attributes: attributes)
         print(lineH)
-        let heigth = ScreenHeight - topMargin - bottomMargin - lineH
-        let width = ScreenWidth - 18 * 2
+        let heigth = ScreenHeight - topMargin - bottomMargin - lineH*0.5
+        let width = ScreenWidth - 8 * 2
         
         var pages = [LRPageModel]()
         

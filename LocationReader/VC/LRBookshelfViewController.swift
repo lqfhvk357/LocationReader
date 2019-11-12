@@ -26,7 +26,7 @@ class LRBookshelfViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PushToPageRoot" {
             let pageRootVC = segue.destination as! LRPageRootViewController
-            pageRootVC.bookName = "7922"
+            pageRootVC.bookName = "jpm"
         }
     }
 

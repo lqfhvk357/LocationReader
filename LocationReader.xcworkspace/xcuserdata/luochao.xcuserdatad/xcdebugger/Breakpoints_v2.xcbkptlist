@@ -18,16 +18,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "14870A54-042B-45A0-8B2F-49D6C1E2502E"
+            uuid = "34FEB854-6497-42B2-BD8C-CCE758E171ED"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LocationReader/VC/LRBooKViewController.swift"
+            filePath = "LocationReader/VC/LRPageRootViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "setup()"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "tapViewHandle(tap:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

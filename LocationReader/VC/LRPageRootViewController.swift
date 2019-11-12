@@ -11,19 +11,38 @@ import UIKit
 
 let DirectoryViewWidth: CGFloat = 268
 let DirectoryTopHeight = CGFloat(ScreenHeight<810 ? 16 : 49)
-
+let SettingViewHeight = CGFloat(ScreenHeight<810 ? 190 : 224)
 
 class LRPageRootViewController: UIViewController {
 
     @IBOutlet weak var handleView: UIView!
+    
+    //topView
     @IBOutlet weak var topHandleView: UIView!
     @IBOutlet weak var topHeightConstraint: NSLayoutConstraint!
+    
+    //bottomView
     @IBOutlet weak var bottomHandleView: UIView!
     @IBOutlet weak var bottomHeightConstraint: NSLayoutConstraint!
+    
+    //directoryView
     @IBOutlet weak var directoryView: UIView!
     @IBOutlet weak var maskView: UIView!
     @IBOutlet weak var directoryTableView: UITableView!
     @IBOutlet weak var directoryTitleTopConstraint: NSLayoutConstraint!
+    
+    //settingView
+    @IBOutlet weak var settingView: UIView!
+    @IBOutlet weak var fontSizeView: UIView!
+    @IBOutlet weak var lineMarginView: UIView!
+    
+    
+
+    
+    @IBOutlet weak var backColorCollectionView: UICollectionView!
+    @IBOutlet weak var pageAnimationSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var settingViewHeightConstraint: NSLayoutConstraint!
     
     var tap: UITapGestureRecognizer?
     
@@ -31,6 +50,10 @@ class LRPageRootViewController: UIViewController {
     let topBeginTransform = CGAffineTransform(translationX: 0, y: -NavBarHeight)
     let bottomBeginTransform = CGAffineTransform(translationX: 0, y: TabBarHeight)
     let directoryBeginTransform = CGAffineTransform(translationX: -DirectoryViewWidth, y: 0)
+    let settingBeginTransform = CGAffineTransform(translationX: 0, y: SettingViewHeight)
+    
+    let modes: [Mode] = [.dayMode0, .dayMode1, .dayMode2, .dayMode3, .dayMode4, .dayMode5]
+    
     
     var ishiddenHandleView = true {
         didSet {
@@ -67,17 +90,9 @@ class LRPageRootViewController: UIViewController {
     deinit {
         print("\(self) doalloc")
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
-    // MARK: - Private
+    // MARK: - View
     func setup() {
         let pageVC = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(withIdentifier: "pageVC") as! LRPageViewController
@@ -95,9 +110,10 @@ class LRPageRootViewController: UIViewController {
         self.directoryView.transform = directoryBeginTransform
         self.directoryTitleTopConstraint.constant = DirectoryTopHeight
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapView))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapViewHandle))
         self.view.addGestureRecognizer(tap)
         self.tap = tap
+        self.tap!.delegate = self
         
         let maskTap = UITapGestureRecognizer(target: self, action: #selector(tapMask))
         self.maskView.addGestureRecognizer(maskTap)
@@ -107,37 +123,109 @@ class LRPageRootViewController: UIViewController {
         self.directoryTableView.lc_registerNibCell(cellClass: LRDirectoryCell.self)
         self.directoryTableView.estimatedRowHeight = 0
         self.directoryTableView.rowHeight = 44
+        
+        
+        self.settingViewHeightConstraint.constant = SettingViewHeight
+        self.settingView.transform = settingBeginTransform
+        self.settingView.isHidden = true
+        self.fontSizeView.layer.cornerRadius = 5
+        self.fontSizeView.clipsToBounds = true
+        self.fontSizeView.layer.borderWidth = 1
+        self.fontSizeView.layer.borderColor = UIColor.systemBackground.cgColor
+        
+        self.lineMarginView.layer.cornerRadius = 5
+        self.lineMarginView.clipsToBounds = true
+        self.lineMarginView.layer.borderWidth = 1
+        self.lineMarginView.layer.borderColor = UIColor.systemBackground.cgColor
+        
+        self.backColorCollectionView.lc_registerNibCell(cellClass: LRColorCell.self)
+        self.flowLayout.estimatedItemSize = .zero
+        self.flowLayout.itemSize = CGSize(width: 40, height: 40)
+        self.backColorCollectionView.dataSource = self
+        self.backColorCollectionView.delegate = self
+        
     }
-
-    // MARK: - Event
     
-    //base
-    @objc func tapView() {
-        self.ishiddenHandleView.toggle()
+    // MARK: - Data
+    func IndexPathKey(for bookName: String?) -> String? {
+        guard let bookName = bookName else {
+            return nil
+        }
+        return "\(bookName)_currentPage"
+    }
+    
+    func dictionaryFrom(indexPath: IndexPath) -> Dictionary<String,Int> {
+        let dict = ["section":indexPath.section, "row":indexPath.row]
+        return dict
+    }
+    
+    // MARK: - Private
+    func updateSetting(isHedden: Bool) {
+        if !isHedden {
+            self.settingView.isHidden = false
+            UIView.animate(withDuration: 0.3, animations: {
+                self.settingView.transform = .identity
+            }, completion: { (_) in
+                
+            })
+        }else {
+            UIView.animate(withDuration: 0.25, animations: {
+                self.settingView.transform = self.settingBeginTransform
+            }, completion: { (_) in
+                self.settingView.isHidden = true
+                self.handleView.isHidden = self.settingView.isHidden
+            })
+        }
+        
+    }
+    
+    func updateDirectoryView(isHedden: Bool) {
+        if !isHedden {
+            self.directoryView.isHidden = false
+            UIView.animate(withDuration: 0.3, animations: {
+                self.maskView.alpha = 0.3
+                self.directoryView.transform = .identity
+            }, completion: { (_) in
+                
+            })
+        }else {
+            UIView.animate(withDuration: 0.25, animations: {
+                self.directoryView.transform = self.directoryBeginTransform
+                self.maskView.alpha = 0
+            }, completion: { (_) in
+                self.directoryView.isHidden = true
+            })
+        }
+        
     }
     
     func updateHandleHidden(isHedden: Bool) {
         self.setNeedsStatusBarAppearanceUpdate()
-        self.tap?.isEnabled = false
-        
         if !isHedden {
             self.handleView.isHidden = isHedden
             UIView.animate(withDuration: 0.25, animations: {
                 self.topHandleView.transform = .identity
                 self.bottomHandleView.transform = .identity
             }, completion: { (_) in
-                self.tap?.isEnabled = true
+                
             })
         }else {
             UIView.animate(withDuration: 0.25, animations: {
                 self.topHandleView.transform = self.topBeginTransform
                 self.bottomHandleView.transform = self.bottomBeginTransform
             }, completion: { (_) in
-                self.handleView.isHidden = isHedden
-                if self.directoryView.isHidden {
-                    self.tap?.isEnabled = true
-                }
+                self.handleView.isHidden = self.settingView.isHidden
             })
+        }
+    }
+
+    // MARK: - Event
+    //base
+    @objc func tapViewHandle(tap: UITapGestureRecognizer) {
+        if !settingView.isHidden {
+            updateSetting(isHedden: true)
+        }else {
+            self.ishiddenHandleView.toggle()
         }
     }
     
@@ -158,56 +246,50 @@ class LRPageRootViewController: UIViewController {
         
     }
     
-    func IndexPathKey(for bookName: String?) -> String? {
-        guard let bookName = bookName else {
-            return nil
-        }
-        return "\(bookName)_currentPage"
-    }
-    
-    func dictionaryFrom(indexPath: IndexPath) -> Dictionary<String,Int> {
-        let dict = ["section":indexPath.section, "row":indexPath.row]
-        return dict
-    }
-    
     //bottom
     @IBAction func directory(_ sender: Any) {
-        self.directoryView.isHidden = false
         self.ishiddenHandleView = true
-        UIView.animate(withDuration: 0.3, animations: {
-            self.maskView.alpha = 0.3
-            self.directoryView.transform = .identity
-        }, completion: { (_) in
-            self.tap?.isEnabled = false
-        })
+        updateDirectoryView(isHedden: false)
     }
     
     @IBAction func night(_ sender: LRSettingButton) {
+        sender.isSelected.toggle()
         
-    }
-    @IBAction func setting(_ sender: Any) {
+        let pageVc = self.children.first as! LRPageViewController
+        var textConfig = pageVc.textConfig
+        textConfig.mode = sender.isSelected ? .darkMode : textConfig.oldMode!
+        pageVc.textConfig = textConfig
+        
+        let bookVC = pageVc.viewControllers!.first as! LRBooKViewController
+        let newBookVC = pageVc.setupBookVC(at: bookVC.indexPath!)
+        pageVc.setViewControllers([newBookVC], direction: .forward, animated: false, completion: nil)
+        
+        
         
     }
     
-    //left
+    //Setting
+    @IBAction func setting(_ sender: Any) {
+        self.ishiddenHandleView = true
+        updateSetting(isHedden: false)
+    }
+    
+    //Directory
     @objc func tapMask() {
-        close()
+        updateDirectoryView(isHedden: true)
     }
 
     @IBAction func close() {
-        self.tap?.isEnabled = true
-        UIView.animate(withDuration: 0.25, animations: {
-            self.directoryView.transform = self.directoryBeginTransform
-            self.maskView.alpha = 0
-        }, completion: { (_) in
-            self.directoryView.isHidden = true
-        })
+        updateDirectoryView(isHedden: true)
     }
     
     @IBAction func selectTo(_ sender: UISegmentedControl) {
         
     }
+    
 }
+
+
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
 extension LRPageRootViewController: UITableViewDataSource, UITableViewDelegate {
@@ -236,4 +318,47 @@ extension LRPageRootViewController: UITableViewDataSource, UITableViewDelegate {
         close()
         tableView.reloadData()
     }
+}
+
+// MARK: - UICollectionViewDataSource & UICollectionViewDelegate
+extension LRPageRootViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.modes.count
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.lc_dequeueReusableCell(indexPath: indexPath) as LRColorCell
+        cell.mode = self.modes[indexPath.item]
+        return cell
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("ssss")
+    }
+}
+
+extension LRPageRootViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == self.tap {
+            let location = gestureRecognizer.location(in: self.view)
+            print(location)
+            
+            if !self.directoryView.isHidden {
+                return false
+            }
+            
+            if !self.handleView.isHidden, location.y < NavBarHeight || location.y > ScreenHeight - TabBarHeight{
+                return false
+            }
+            
+            if !self.settingView.isHidden, location.y > ScreenHeight - SettingViewHeight {
+                return false
+            }
+        }
+        
+        return true
+    }
+
 }
