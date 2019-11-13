@@ -97,13 +97,9 @@ class LRPageRootViewController: UIViewController {
     
     // MARK: - View
     func setup() {
-        let pageVC = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "pageVC") as! LRPageViewController
-        pageVC.bookName = bookName
-        self.addChild(pageVC)
-        self.view.insertSubview(pageVC.view, at: 0)
-        pageVC.view.frame = self.view.bounds
-        
+//        let pageVC = UIStoryboard(name: "Main", bundle: nil)
+//            .instantiateViewController(withIdentifier: "pageVC") as! LRPageViewController
+        addPageVC(with: .pageCurl)
         
         handleView.isHidden = ishiddenHandleView
         self.topHeightConstraint.constant = NavBarHeight
@@ -148,6 +144,20 @@ class LRPageRootViewController: UIViewController {
         self.backColorCollectionView.dataSource = self
         self.backColorCollectionView.delegate = self
         
+    }
+    
+    func addPageVC(with transitionStyle: UIPageViewController.TransitionStyle) {
+        let newPageVC = LRPageViewController(transitionStyle: transitionStyle, navigationOrientation: .horizontal, options: nil)
+        newPageVC.bookName = bookName
+        self.addChild(newPageVC)
+        self.view.insertSubview(newPageVC.view, at: 0)
+        newPageVC.view.frame = self.view.bounds
+    }
+    
+    func removePageVC() {
+        let pageVC = self.children.first as! LRPageViewController
+        pageVC.view.removeFromSuperview()
+        pageVC.removeFromParent()
     }
     
     // MARK: - Data
@@ -223,6 +233,20 @@ class LRPageRootViewController: UIViewController {
         }
     }
 
+    func saveIndex() {
+        guard let currentIndexKey = IndexPathKey(for: bookName) else {
+            return
+        }
+        
+        let pageVC = self.children.first as! LRPageViewController
+        guard pageVC.children.count > 0 else { return }
+        let bookVC = (pageVC.children.count == 3 ? pageVC.children[1]
+            : pageVC.children[0]) as! LRBooKViewController
+        
+        let dict = dictionaryFrom(indexPath: bookVC.indexPath!)
+        UserDefaults.standard.set(dict, forKey: currentIndexKey)
+    }
+    
     // MARK: - Event
     //base
     @objc func tapViewHandle(tap: UITapGestureRecognizer) {
@@ -235,19 +259,8 @@ class LRPageRootViewController: UIViewController {
     
     // top
     @IBAction func back(_ sender: Any) {
+        saveIndex()
         self.navigationController?.popViewController(animated: true)
-        
-        guard let currentIndexKey = IndexPathKey(for: bookName) else {
-            return
-        }
-        
-        let pageVC = self.children.first as! LRPageViewController
-        guard let bookVC = pageVC.children.first as? LRBooKViewController else {
-            return
-        }
-        let dict = dictionaryFrom(indexPath: bookVC.indexPath!)
-        UserDefaults.standard.set(dict, forKey: currentIndexKey)
-        
     }
     
     //bottom
@@ -276,6 +289,15 @@ class LRPageRootViewController: UIViewController {
     @IBAction func setting(_ sender: Any) {
         self.ishiddenHandleView = true
         updateSetting(isHedden: false)
+    }
+    @IBAction func selectPageAnimation(_ sender: UISegmentedControl) {
+        saveIndex()
+        removePageVC()
+        if sender.selectedSegmentIndex == 0 {
+            addPageVC(with: .pageCurl)
+        }else {
+            addPageVC(with: .scroll)
+        }
     }
     
     //Directory

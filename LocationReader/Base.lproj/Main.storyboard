@@ -145,7 +145,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2387" y="-411"/>
+            <point key="canvasLocation" x="1838" y="-411"/>
         </scene>
         <!--Page Root View Controller-->
         <scene sceneID="Pt1-O4-bKR">
@@ -481,6 +481,9 @@
                                                     <segment title="左右"/>
                                                 </segments>
                                                 <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <connections>
+                                                    <action selector="selectPageAnimation:" destination="O0k-hS-qct" eventType="valueChanged" id="CXe-Gj-DSx"/>
+                                                </connections>
                                             </segmentedControl>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -559,16 +562,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YId-cz-qkG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="992.75362318840587" y="-411.16071428571428"/>
-        </scene>
-        <!--Page View Controller-->
-        <scene sceneID="dCe-mV-Qlp">
-            <objects>
-                <pageViewController restorationIdentifier="pageVC" storyboardIdentifier="pageVC" autoresizesArchivedViewToFullSize="NO" hidesBottomBarWhenPushed="YES" transitionStyle="pageCurl" pageSpacing="20" navigationOrientation="horizontal" spineLocation="none" id="L1X-Z4-Vjc" customClass="LRPageViewController" customModule="LocationReader" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="hSb-hP-xla"/>
-                </pageViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="I6B-WK-vO9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1677" y="-411"/>
         </scene>
         <!--书架-->
         <scene sceneID="5Hp-sg-vhI">
