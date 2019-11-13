@@ -25,9 +25,9 @@
             filePath = "LocationReader/VC/LRPageRootViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
-            landmarkName = "tapViewHandle(tap:)"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "updateHandleHidden(isHedden:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

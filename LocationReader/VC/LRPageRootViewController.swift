@@ -24,6 +24,7 @@ class LRPageRootViewController: UIViewController {
     //bottomView
     @IBOutlet weak var bottomHandleView: UIView!
     @IBOutlet weak var bottomHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var nightButton: LRSettingButton!
     
     //directoryView
     @IBOutlet weak var directoryView: UIView!
@@ -33,36 +34,37 @@ class LRPageRootViewController: UIViewController {
     
     //settingView
     @IBOutlet weak var settingView: UIView!
+    @IBOutlet weak var decreaseFontSizeButton: UIButton!
+    @IBOutlet weak var increaseFontSizeButton: UIButton!
+    @IBOutlet weak var fontSizeLabel: UILabel!
     @IBOutlet weak var fontSizeView: UIView!
+    @IBOutlet weak var decreaseLineMarginButton: UIButton!
+    @IBOutlet weak var increaseLineMarginButton: UIButton!
+    @IBOutlet weak var lineMarginLabel: UILabel!
     @IBOutlet weak var lineMarginView: UIView!
-    
-    
-
-    
     @IBOutlet weak var backColorCollectionView: UICollectionView!
     @IBOutlet weak var pageAnimationSegmentedControl: UISegmentedControl!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var settingViewHeightConstraint: NSLayoutConstraint!
     
-    var tap: UITapGestureRecognizer?
     
+    var tap: UITapGestureRecognizer?
     
     let topBeginTransform = CGAffineTransform(translationX: 0, y: -NavBarHeight)
     let bottomBeginTransform = CGAffineTransform(translationX: 0, y: TabBarHeight)
     let directoryBeginTransform = CGAffineTransform(translationX: -DirectoryViewWidth, y: 0)
     let settingBeginTransform = CGAffineTransform(translationX: 0, y: SettingViewHeight)
     
-    let modes: [Mode] = [.dayMode0, .dayMode1, .dayMode2, .dayMode3, .dayMode4, .dayMode5]
-    
+    let modes: [Mode] = [.dayMode0, .dayMode1, .dayMode2, .dayMode3, .dayMode4, .dayMode5, .dayMode6, .dayMode7, .dayMode8]
     
     var ishiddenHandleView = true {
         didSet {
             updateHandleHidden(isHedden: ishiddenHandleView)
         }
     }
-    
     var bookName: String? = nil
     
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -71,6 +73,7 @@ class LRPageRootViewController: UIViewController {
         return ishiddenHandleView
     }
     
+    //MARK: - Life
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -100,6 +103,7 @@ class LRPageRootViewController: UIViewController {
         self.addChild(pageVC)
         self.view.insertSubview(pageVC.view, at: 0)
         pageVC.view.frame = self.view.bounds
+        
         
         handleView.isHidden = ishiddenHandleView
         self.topHeightConstraint.constant = NavBarHeight
@@ -315,7 +319,7 @@ extension LRPageRootViewController: UITableViewDataSource, UITableViewDelegate {
         pageVc.popChapters(at: indexPath.row)
         let bookVC = pageVc.setupBookVC(at: IndexPath(row: 0, section: indexPath.row))
         pageVc.setViewControllers([bookVC], direction: .forward, animated: false, completion: nil)
-        close()
+        updateDirectoryView(isHedden: true)
         tableView.reloadData()
     }
 }
@@ -335,15 +339,27 @@ extension LRPageRootViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let pageVc = self.children.first as! LRPageViewController
+        var textConfig = pageVc.textConfig
+        textConfig.mode = modes[indexPath.item]
+        pageVc.textConfig = textConfig
+
+        let bookVC = pageVc.viewControllers!.first as! LRBooKViewController
+        let newBookVC = pageVc.setupBookVC(at: bookVC.indexPath!)
+        pageVc.setViewControllers([newBookVC], direction: .forward, animated: false, completion: nil)
+        nightButton.isSelected = false
+        
         print("ssss")
     }
 }
 
+// MARK: - UIGestureRecognizerDelegate
 extension LRPageRootViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer == self.tap {
             let location = gestureRecognizer.location(in: self.view)
-            print(location)
+//            print(location)
             
             if !self.directoryView.isHidden {
                 return false

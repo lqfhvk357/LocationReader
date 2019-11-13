@@ -54,9 +54,17 @@ class Mode {
     class var dayMode4: Mode {
         return Mode(color: .init(0x333333), backColor: .init(0xd1dcc8))
     }
-    
     class var dayMode5: Mode {
-        return .darkMode
+        return Mode(color: .init(0x333333), backColor: .init(0xdfdfdf))
+    }
+    class var dayMode6: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0x00793f))
+    }
+    class var dayMode7: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xcbbdcf))
+    }
+    class var dayMode8: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xdedcc8))
     }
 }
 
