@@ -8,17 +8,20 @@
 
 import UIKit
 import CoreFoundation
+import SnapKit
 
 
 
 class LRBooKViewController: UIViewController {
     
-    @IBOutlet weak var textView: UITextView!
+    weak var textView: UITextView!
+    @IBOutlet weak var spaceView: UIView!
     @IBOutlet weak var chaptersLabel: UILabel!
     @IBOutlet weak var timeLabel: LRTimeLabel!
     @IBOutlet weak var pageLabel: UILabel!
     @IBOutlet weak var backImageView: UIImageView!
     
+    @IBOutlet weak var testLabel: UILabel!
     @IBOutlet weak var topHeightConstraint: NSLayoutConstraint!
     
     
@@ -40,6 +43,16 @@ class LRBooKViewController: UIViewController {
 
     func setup() {
         topHeightConstraint.constant = topMargin
+        
+        let textView = UITextView()
+        textView.backgroundColor = .clear
+        self.view.addSubview(textView)
+        textView.snp_makeConstraints { make in
+            make.edges.equalTo(spaceView)
+        }
+        self.textView = textView
+        self.textView.isUserInteractionEnabled = false
+        
         if let pageModel = pageModel {
             textView.attributedText = pageModel.text
             pageLabel.text = pageModel.page
@@ -47,10 +60,13 @@ class LRBooKViewController: UIViewController {
         }
         
         if let textConfig = textConfig {
-            textView.textColor = textConfig.color
+            textView.textColor = textConfig.mode.color
 //            textView.font = textConfig.font
-            backImageView.image = textConfig.backImage
-            backImageView.backgroundColor = textConfig.backColor
+            backImageView.image = textConfig.mode.backImage
+            backImageView.backgroundColor = textConfig.mode.backColor
+            pageLabel.textColor = textConfig.mode.color
+            timeLabel.textColor = textConfig.mode.color
+            chaptersLabel.textColor = textConfig.mode.color
         }
     }
 

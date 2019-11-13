@@ -112,9 +112,12 @@
 		430A3DD3236C40C400E9615D /* LRSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A3DD2236C40C400E9615D /* LRSettingButton.swift */; };
 		430A3DD6236C6A9000E9615D /* LRDirectoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A3DD4236C6A9000E9615D /* LRDirectoryCell.swift */; };
 		430A3DD7236C6A9000E9615D /* LRDirectoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 430A3DD5236C6A9000E9615D /* LRDirectoryCell.xib */; };
+		436D4872236FEEF200393842 /* jpm.txt in Resources */ = {isa = PBXBuildFile; fileRef = 436D4871236FEEF200393842 /* jpm.txt */; };
 		4385636223672B01007D055D /* LRPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4385636123672B01007D055D /* LRPageViewController.swift */; };
 		4385636423682507007D055D /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4385636323682507007D055D /* Const.swift */; };
 		438563682369BFD9007D055D /* LRPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438563672369BFD9007D055D /* LRPageModel.swift */; };
+		4394EA98237AB4CC0007C800 /* LRColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4394EA96237AB4CC0007C800 /* LRColorCell.swift */; };
+		4394EA99237AB4CC0007C800 /* LRColorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4394EA97237AB4CC0007C800 /* LRColorCell.xib */; };
 		439CC1D823669ED100978E9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CC1D723669ED100978E9F /* AppDelegate.swift */; };
 		439CC1DA23669ED100978E9F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CC1D923669ED100978E9F /* SceneDelegate.swift */; };
 		439CC1DC23669ED100978E9F /* LRBooKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CC1DB23669ED100978E9F /* LRBooKViewController.swift */; };
@@ -237,9 +240,12 @@
 		430A3DD2236C40C400E9615D /* LRSettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRSettingButton.swift; sourceTree = "<group>"; };
 		430A3DD4236C6A9000E9615D /* LRDirectoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRDirectoryCell.swift; sourceTree = "<group>"; };
 		430A3DD5236C6A9000E9615D /* LRDirectoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LRDirectoryCell.xib; sourceTree = "<group>"; };
+		436D4871236FEEF200393842 /* jpm.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jpm.txt; sourceTree = "<group>"; };
 		4385636123672B01007D055D /* LRPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRPageViewController.swift; sourceTree = "<group>"; };
 		4385636323682507007D055D /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		438563672369BFD9007D055D /* LRPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRPageModel.swift; sourceTree = "<group>"; };
+		4394EA96237AB4CC0007C800 /* LRColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRColorCell.swift; sourceTree = "<group>"; };
+		4394EA97237AB4CC0007C800 /* LRColorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LRColorCell.xib; sourceTree = "<group>"; };
 		439CC1D423669ED100978E9F /* LocationReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocationReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		439CC1D723669ED100978E9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		439CC1D923669ED100978E9F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -414,6 +420,7 @@
 				439CC2C32366C9A000978E9F /* VC */,
 				439CC2C02366BCFC00978E9F /* View */,
 				439CC1EB2366A3C900978E9F /* 水浒传.txt */,
+				436D4871236FEEF200393842 /* jpm.txt */,
 				43E1C991236C849800E88A35 /* 7922.txt */,
 				43E1C993236C86ED00E88A35 /* all.txt */,
 				439CC1D723669ED100978E9F /* AppDelegate.swift */,
@@ -436,6 +443,8 @@
 				430A3DD2236C40C400E9615D /* LRSettingButton.swift */,
 				430A3DD4236C6A9000E9615D /* LRDirectoryCell.swift */,
 				430A3DD5236C6A9000E9615D /* LRDirectoryCell.xib */,
+				4394EA96237AB4CC0007C800 /* LRColorCell.swift */,
+				4394EA97237AB4CC0007C800 /* LRColorCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -596,6 +605,7 @@
 				430A3DAF236B1A0100E9615D /* 93.txt in Resources */,
 				430A3D73236B1A0100E9615D /* 16.txt in Resources */,
 				430A3D9C236B1A0100E9615D /* 81.txt in Resources */,
+				4394EA99237AB4CC0007C800 /* LRColorCell.xib in Resources */,
 				430A3DCD236B1A0100E9615D /* 18.txt in Resources */,
 				430A3D9F236B1A0100E9615D /* 56.txt in Resources */,
 				430A3D6B236B1A0100E9615D /* 29.txt in Resources */,
@@ -619,6 +629,7 @@
 				430A3DB2236B1A0100E9615D /* 50.txt in Resources */,
 				430A3D70236B1A0100E9615D /* 14.txt in Resources */,
 				430A3D91236B1A0100E9615D /* 65.txt in Resources */,
+				436D4872236FEEF200393842 /* jpm.txt in Resources */,
 				430A3DD7236C6A9000E9615D /* LRDirectoryCell.xib in Resources */,
 				430A3DBF236B1A0100E9615D /* 21.txt in Resources */,
 				430A3D7F236B1A0100E9615D /* 11.txt in Resources */,
@@ -694,6 +705,7 @@
 				438563682369BFD9007D055D /* LRPageModel.swift in Sources */,
 				439CC2BF2366BCF300978E9F /* LRTimeLabel.swift in Sources */,
 				439CC1D823669ED100978E9F /* AppDelegate.swift in Sources */,
+				4394EA98237AB4CC0007C800 /* LRColorCell.swift in Sources */,
 				439CC1DA23669ED100978E9F /* SceneDelegate.swift in Sources */,
 				430A3DD1236BBDA100E9615D /* LRPageRootViewController.swift in Sources */,
 				4385636223672B01007D055D /* LRPageViewController.swift in Sources */,

@@ -9,14 +9,58 @@
 import UIKit
 
 struct LRTextConfig {
-    var color: UIColor = .black
     var font: UIFont = UIFont(name: "PingFangTC-Regular", size: 16)!
 //    var font: UIFont = .systemFont(ofSize: 16)!
-    var backImage: UIImage? = nil
-//    var backImage: UIImage? = UIImage(named: "Miso(1347)0032.jpg")
-    var backColor: UIColor = .white
     
+    var mode: Mode = .dayMode0
 }
+
+class Mode {
+    let color: UIColor
+    let backColor: UIColor
+    let backImage: UIImage?
+    //    var backImage: UIImage? = UIImage(named: "Miso(1347)0032.jpg")
+    
+    init(color: UIColor, backColor: UIColor, backImage: UIImage? = nil) {
+        self.color = color
+        self.backColor = backColor
+        self.backImage = backImage
+    }
+    
+    class var darkMode: Mode {
+        return Mode(color: .init(0x8a8a8a), backColor: .init(0x333333))
+    }
+    
+    
+    class var dayMode0: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xe4cca4))
+    }
+    class var dayMode1: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xf7efcf))
+    }
+    class var dayMode2: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xc8d6e1))
+    }
+    class var dayMode3: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xefdfd8))
+    }
+    class var dayMode4: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xd1dcc8))
+    }
+    class var dayMode5: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xdfdfdf))
+    }
+    class var dayMode6: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0x00793f))
+    }
+    class var dayMode7: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xcbbdcf))
+    }
+    class var dayMode8: Mode {
+        return Mode(color: .init(0x333333), backColor: .init(0xdedcc8))
+    }
+}
+
 
 
 class LRPageViewController: UIPageViewController {
@@ -28,8 +72,8 @@ class LRPageViewController: UIPageViewController {
     let TitleKey = "TitleKey"
     var chapters = [[String:String]]()
     
+    var bookName: String? = nil
     let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last!
-    
     var contentString: NSString = ""
     
     
@@ -37,18 +81,28 @@ class LRPageViewController: UIPageViewController {
         super.viewDidLoad()
         self.dataSource = self
         self.delegate = self
-        chapters = getChapters()
-        popChapters(at: 0)
         
-//        let workItem = DispatchWorkItem {
-//            for i in 1..<self.chapters.count {
-//                self.popChapters(at: i)
-//            }
-//        }
-//        DispatchQueue.global().async(execute: workItem)
-//        self.workItem = workItem
+        var currentIndexPath = IndexPath(row: 0, section: 0)
+        guard let currentIndexKey = IndexPathKey(for: bookName) else {
+            return
+        }
+        if let dict = UserDefaults.standard.dictionary(forKey: currentIndexKey) as? Dictionary<String,Int>{
+            currentIndexPath = indexPathFrom(dict: dict)
+        }
         
-        let bookVC = setupBookVC(at: IndexPath(row: 0, section: 0))
+        let encoding = String.Encoding.utf8
+        chapters = getChapters(encoding: encoding)
+        if chapters.count == 0 {
+            let otherEncoding = String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue)))
+            chapters = getChapters(encoding: otherEncoding)
+            guard chapters.count > 0 else {
+                return
+            }
+        }
+        
+        
+        popChapters(at: currentIndexPath.section)
+        let bookVC = setupBookVC(at: currentIndexPath)
         self.setViewControllers([bookVC], direction: .forward, animated: true, completion: nil)
         // Do any additional setup after loading the view.
     }
@@ -58,17 +112,33 @@ class LRPageViewController: UIPageViewController {
         print("\(self) doalloc")
     }
     
+    func IndexPathKey(for bookName: String?) -> String? {
+        guard let bookName = bookName else {
+            return nil
+        }
+        return "\(bookName)_currentPage"
+    }
+    
+    func indexPathFrom(dict: Dictionary<String,Int>) -> IndexPath {
+        let indexPath = IndexPath(row: dict["row"]!, section: dict["section"]!)
+        return indexPath
+    }
+    
     // MARK: - DATA
-    func getChapters() -> [[String:String]] {
-        let bookName = "all"
-        let filePath = Bundle.main.path(forResource: bookName, ofType: "txt")!
-//        let encoding = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
-        let encoding = String.Encoding.utf8.rawValue
-        let content = try? String(contentsOfFile: filePath, encoding: String.Encoding(rawValue: encoding))
-        if content == nil {
+    func getChapters(encoding: String.Encoding) -> [[String:String]] {
+        guard let bookName = bookName else {
             return []
         }
-        contentString = NSString(string: content!)
+        guard let filePath = Bundle.main.path(forResource: bookName, ofType: "txt") else {
+            return []
+        }
+//        let encoding = CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue))
+//        let encoding = String.Encoding.utf8.rawValue
+        
+        guard let content = try? String(contentsOfFile: filePath, encoding: encoding) else {
+            return []
+        }
+        contentString = NSString(string: content)
 
         let chaptersPath = "\(documentsPath)/\(bookName)_chapters.plist"
         let fm = FileManager.default
@@ -88,7 +158,7 @@ class LRPageViewController: UIPageViewController {
         print(Date())
         let pattern = "\n[序第][\\d\\u4e00-\\u9fa5]{0,8}[章回]\\s+\\S+"
         let reg = try! NSRegularExpression(pattern: pattern, options: [])
-        let results = reg.matches(in: content!, options: [], range: NSRange(location: 0, length: contentString.length))
+        let results = reg.matches(in: content, options: [], range: NSRange(location: 0, length: contentString.length))
         
         let sum = results.count
         var i = 0
@@ -131,7 +201,7 @@ class LRPageViewController: UIPageViewController {
         let attributes:[NSAttributedString.Key: Any] = [
             .paragraphStyle: paragraphStyle,
             .font: textConfig.font,
-            .foregroundColor: textConfig.color
+            .foregroundColor: textConfig.mode.color
         ]
         textStorage.setAttributes(attributes, range: NSRange(location: 0, length: text.count))
         let layoutM = NSLayoutManager()
@@ -139,8 +209,8 @@ class LRPageViewController: UIPageViewController {
         
         let lineH = getOneLineHeight(with: "超哥", attributes: attributes)
         print(lineH)
-        let heigth = ScreenHeight - topMargin - bottomMargin - lineH
-        let width = ScreenWidth - 18 * 2
+        let heigth = ScreenHeight - topMargin - bottomMargin - lineH*0.5
+        let width = ScreenWidth - 8 * 2
         
         var pages = [LRPageModel]()
         
@@ -187,7 +257,11 @@ class LRPageViewController: UIPageViewController {
             return
         }
         let fc = chapters[index]
-        textArray["\(index)"] = getPages(for: fc)
+        let models = getPages(for: fc)
+        guard models.count > 0 else {
+            return
+        }
+        textArray["\(index)"] = models
     }
     
     // MARK: - View

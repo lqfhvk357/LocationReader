@@ -24,8 +24,9 @@ class LRBookshelfViewController: UIViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "testPush" {
-            
+        if segue.identifier == "PushToPageRoot" {
+            let pageRootVC = segue.destination as! LRPageRootViewController
+            pageRootVC.bookName = "水浒传"
         }
     }
 
