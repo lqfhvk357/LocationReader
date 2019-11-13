@@ -537,8 +537,6 @@
                         <outlet property="backColorCollectionView" destination="r1T-xa-8oi" id="uq7-Ji-mKc"/>
                         <outlet property="bottomHandleView" destination="uIx-QP-0Xf" id="zlO-Ht-yCl"/>
                         <outlet property="bottomHeightConstraint" destination="bhO-DY-X5B" id="gAt-jC-g2E"/>
-                        <outlet property="decreaseFontSizeButton" destination="p8W-7c-y5W" id="OjU-cS-8jD"/>
-                        <outlet property="decreaseLineMarginButton" destination="HaZ-7h-18L" id="ijz-9G-R4k"/>
                         <outlet property="directoryTableView" destination="khw-fd-cl4" id="pfH-dM-9ql"/>
                         <outlet property="directoryTitleTopConstraint" destination="5N3-LL-RTw" id="htw-oO-5eo"/>
                         <outlet property="directoryView" destination="9KS-AL-Ya9" id="QW0-VJ-LBF"/>
@@ -546,10 +544,8 @@
                         <outlet property="fontSizeLabel" destination="FQw-gJ-fj9" id="UXz-du-E40"/>
                         <outlet property="fontSizeView" destination="5I7-vA-BgD" id="a9J-Dh-n8S"/>
                         <outlet property="handleView" destination="7bF-aX-RD9" id="cq2-Hb-mXN"/>
-                        <outlet property="increaseFontSizeButton" destination="YMA-bD-88w" id="uoN-4a-tla"/>
-                        <outlet property="increaseLineMarginButton" destination="n6l-Zr-idN" id="dHN-lL-hKz"/>
-                        <outlet property="lineMarginLabel" destination="eIv-ak-THH" id="DD3-a6-SzK"/>
-                        <outlet property="lineMarginView" destination="mve-on-tsQ" id="Zbq-2n-bMf"/>
+                        <outlet property="lineSpacingLabel" destination="eIv-ak-THH" id="LTO-x1-tji"/>
+                        <outlet property="lineSpacingView" destination="mve-on-tsQ" id="qPm-eW-rNy"/>
                         <outlet property="maskView" destination="k02-bq-aOZ" id="taC-nM-alm"/>
                         <outlet property="nightButton" destination="vu3-dO-49B" id="xLU-oL-5R0"/>
                         <outlet property="pageAnimationSegmentedControl" destination="78h-sT-OOA" id="yBD-ha-vcy"/>
@@ -600,21 +596,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ez0-ol-JlD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-633.33333333333337" y="237.72321428571428"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="Izu-hc-SBJ">
-            <objects>
-                <viewController id="cHl-YV-yYA" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="lv5-0Q-JJ7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="Pjx-Ai-NcO"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1sd-y5-RXP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1768" y="234"/>
         </scene>
     </scenes>
     <resources>

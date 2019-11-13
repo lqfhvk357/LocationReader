@@ -11,7 +11,7 @@ import UIKit
 struct LRTextConfig {
     var font: UIFont = UIFont(name: "PingFangTC-Regular", size: 16)!
 //    var font: UIFont = .systemFont(ofSize: 16)!
-    
+    var lineSpacing: CGFloat = 2
     var mode: Mode = .dayMode0
 }
 
@@ -197,7 +197,7 @@ class LRPageViewController: UIPageViewController {
         let text = contentString.substring(with: range)
         let textStorage = NSTextStorage(string: text)
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 2
+        paragraphStyle.lineSpacing = textConfig.lineSpacing
         let attributes:[NSAttributedString.Key: Any] = [
             .paragraphStyle: paragraphStyle,
             .font: textConfig.font,

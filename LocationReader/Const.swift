@@ -34,5 +34,22 @@ let KActive = "KActive"
 //var partUrlString = "v88"
 
 
-
-
+///UserDefault
+@propertyWrapper public struct UserDefault<T> {
+    let key: String
+    let defaultValue: T
+    
+    public var wrappedValue: T {
+        get {
+            UserDefaults.standard.value(forKey: key) as? T ?? defaultValue
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: key)
+        }
+    }
+    
+    init(key: String, defaultValue: T) {
+        self.defaultValue = defaultValue
+        self.key = key
+    }
+}
