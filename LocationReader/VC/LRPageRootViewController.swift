@@ -55,7 +55,11 @@ class LRPageRootViewController: UIViewController {
     let directoryBeginTransform = CGAffineTransform(translationX: -DirectoryViewWidth, y: 0)
     let settingBeginTransform = CGAffineTransform(translationX: 0, y: SettingViewHeight)
     
+    let ModeNumKey = "ModeNumKey"
+    let PageAnimationKey = "PageAnimationKey"
     let modes: [Mode] = [.dayMode0, .dayMode1, .dayMode2, .dayMode3, .dayMode4, .dayMode5, .dayMode6, .dayMode7, .dayMode8]
+//    var modeNum = 0
+    
     
     var ishiddenHandleView = true {
         didSet {
@@ -97,9 +101,16 @@ class LRPageRootViewController: UIViewController {
     
     // MARK: - View
     func setup() {
-//        let pageVC = UIStoryboard(name: "Main", bundle: nil)
-//            .instantiateViewController(withIdentifier: "pageVC") as! LRPageViewController
-        addPageVC(with: .pageCurl)
+        let modeNum = readModeNum()
+        nightButton.isSelected = modeNum < 0
+        let mode = modeNum < 0 ? Mode.darkMode : modes[modeNum]
+        let textConfig = LRTextConfig(mode: mode)
+        
+        let pageTransitionStyle = readPageTransitionStyle()
+        self.pageAnimationSegmentedControl.selectedSegmentIndex =
+            pageTransitionStyle == UIPageViewController.TransitionStyle.pageCurl ? 0 : 1
+        
+        addPageVC(with: pageTransitionStyle, textConfig: textConfig)
         
         handleView.isHidden = ishiddenHandleView
         self.topHeightConstraint.constant = NavBarHeight
@@ -146,18 +157,25 @@ class LRPageRootViewController: UIViewController {
         
     }
     
-    func addPageVC(with transitionStyle: UIPageViewController.TransitionStyle) {
+    func addPageVC(with transitionStyle: UIPageViewController.TransitionStyle, textConfig: LRTextConfig? = nil) {
         let newPageVC = LRPageViewController(transitionStyle: transitionStyle, navigationOrientation: .horizontal, options: nil)
+        if let textConfig = textConfig {
+            newPageVC.textConfig = textConfig
+        }
         newPageVC.bookName = bookName
         self.addChild(newPageVC)
         self.view.insertSubview(newPageVC.view, at: 0)
         newPageVC.view.frame = self.view.bounds
     }
     
-    func removePageVC() {
+    func removePageVC() -> LRTextConfig {
         let pageVC = self.children.first as! LRPageViewController
+        let textConfig = pageVC.textConfig
+        
         pageVC.view.removeFromSuperview()
         pageVC.removeFromParent()
+        
+        return textConfig
     }
     
     // MARK: - Data
@@ -171,6 +189,28 @@ class LRPageRootViewController: UIViewController {
     func dictionaryFrom(indexPath: IndexPath) -> Dictionary<String,Int> {
         let dict = ["section":indexPath.section, "row":indexPath.row]
         return dict
+    }
+    
+    func save(modeNum: Int) {
+        UserDefaults.standard.set(modeNum, forKey: ModeNumKey)
+    }
+    
+    func readModeNum() -> Int {
+        if let num = UserDefaults.standard.value(forKey: ModeNumKey) as? Int {
+            return num
+        }
+        return 0
+    }
+    
+    func readPageTransitionStyle() -> UIPageViewController.TransitionStyle {
+        if let rowValue = UserDefaults.standard.value(forKey: PageAnimationKey) as? Int{
+            return UIPageViewController.TransitionStyle(rawValue: rowValue)!
+        }
+        return .pageCurl
+    }
+    
+    func save(pageTransitionStyle: UIPageViewController.TransitionStyle) {
+        UserDefaults.standard.set(pageTransitionStyle.rawValue, forKey: PageAnimationKey)
     }
     
     // MARK: - Private
@@ -247,6 +287,17 @@ class LRPageRootViewController: UIViewController {
         UserDefaults.standard.set(dict, forKey: currentIndexKey)
     }
     
+    func pageUpdate(mode: Mode) {
+        let pageVc = self.children.first as! LRPageViewController
+        var textConfig = pageVc.textConfig
+        textConfig.mode = mode
+        pageVc.textConfig = textConfig
+        
+        let bookVC = pageVc.viewControllers!.first as! LRBooKViewController
+        let newBookVC = pageVc.setupBookVC(at: bookVC.indexPath!)
+        pageVc.setViewControllers([newBookVC], direction: .forward, animated: false, completion: nil)
+    }
+    
     // MARK: - Event
     //base
     @objc func tapViewHandle(tap: UITapGestureRecognizer) {
@@ -260,6 +311,9 @@ class LRPageRootViewController: UIViewController {
     // top
     @IBAction func back(_ sender: Any) {
         saveIndex()
+        let pageVc = self.children.first as! LRPageViewController
+        save(pageTransitionStyle: pageVc.transitionStyle)
+        
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -270,19 +324,14 @@ class LRPageRootViewController: UIViewController {
     }
     
     @IBAction func night(_ sender: LRSettingButton) {
-        sender.isSelected.toggle()
+        let modeNum = readModeNum()
+        let newModeNum = -(modeNum+1)
         
-        let pageVc = self.children.first as! LRPageViewController
-        var textConfig = pageVc.textConfig
-        textConfig.mode = sender.isSelected ? .darkMode : textConfig.oldMode!
-        pageVc.textConfig = textConfig
+        sender.isSelected = newModeNum < 0
+        let mode = newModeNum < 0 ? .darkMode : modes[newModeNum]
         
-        let bookVC = pageVc.viewControllers!.first as! LRBooKViewController
-        let newBookVC = pageVc.setupBookVC(at: bookVC.indexPath!)
-        pageVc.setViewControllers([newBookVC], direction: .forward, animated: false, completion: nil)
-        
-        
-        
+        save(modeNum: newModeNum)
+        pageUpdate(mode: mode)
     }
     
     //Setting
@@ -292,11 +341,12 @@ class LRPageRootViewController: UIViewController {
     }
     @IBAction func selectPageAnimation(_ sender: UISegmentedControl) {
         saveIndex()
-        removePageVC()
+        let textConfig = removePageVC()
+        
         if sender.selectedSegmentIndex == 0 {
-            addPageVC(with: .pageCurl)
+            addPageVC(with: .pageCurl, textConfig: textConfig)
         }else {
-            addPageVC(with: .scroll)
+            addPageVC(with: .scroll, textConfig: textConfig)
         }
     }
     
@@ -361,18 +411,9 @@ extension LRPageRootViewController: UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let pageVc = self.children.first as! LRPageViewController
-        var textConfig = pageVc.textConfig
-        textConfig.mode = modes[indexPath.item]
-        pageVc.textConfig = textConfig
-
-        let bookVC = pageVc.viewControllers!.first as! LRBooKViewController
-        let newBookVC = pageVc.setupBookVC(at: bookVC.indexPath!)
-        pageVc.setViewControllers([newBookVC], direction: .forward, animated: false, completion: nil)
         nightButton.isSelected = false
-        
-        print("ssss")
+        save(modeNum: indexPath.item)
+        pageUpdate(mode: modes[indexPath.item])
     }
 }
 

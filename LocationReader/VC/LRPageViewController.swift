@@ -12,14 +12,7 @@ struct LRTextConfig {
     var font: UIFont = UIFont(name: "PingFangTC-Regular", size: 16)!
 //    var font: UIFont = .systemFont(ofSize: 16)!
     
-    var mode: Mode = .dayMode0 {
-        didSet {
-            oldMode = oldValue
-        }
-    }
-    
-    var oldMode: Mode?
-    
+    var mode: Mode = .dayMode0
 }
 
 class Mode {
