@@ -9,7 +9,11 @@
 import UIKit
 
 struct LRTextConfig {
-    var font: UIFont = UIFont(name: "PingFangTC-Regular", size: 16)!
+    var fontSize: CGFloat = 16
+    
+    var font: UIFont {
+        UIFont(name: "PingFangTC-Regular", size: fontSize)!
+    }
 //    var font: UIFont = .systemFont(ofSize: 16)!
     var lineSpacing: CGFloat = 2
     var mode: Mode = .dayMode0

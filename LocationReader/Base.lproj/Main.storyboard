@@ -316,6 +316,9 @@
                                                             <constraint firstAttribute="width" secondItem="p8W-7c-y5W" secondAttribute="height" multiplier="17:15" id="9eP-Q0-2dP"/>
                                                         </constraints>
                                                         <state key="normal" backgroundImage="read_setting_font_decrease"/>
+                                                        <connections>
+                                                            <action selector="decreaseFontSize:" destination="O0k-hS-qct" eventType="touchUpInside" id="lBj-Bv-FqY"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMA-bD-88w">
                                                         <rect key="frame" x="81" y="3" width="34" height="30"/>
@@ -324,6 +327,9 @@
                                                             <constraint firstAttribute="width" secondItem="YMA-bD-88w" secondAttribute="height" multiplier="17:15" id="Ljb-3B-WOG"/>
                                                         </constraints>
                                                         <state key="normal" backgroundImage="read_setting_font_increase"/>
+                                                        <connections>
+                                                            <action selector="increaseFontSize:" destination="O0k-hS-qct" eventType="touchUpInside" id="9EI-cS-1Jj"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQw-gJ-fj9">
                                                         <rect key="frame" x="45" y="9" width="30" height="18"/>

@@ -328,6 +328,17 @@ class LRPageRootViewController: UIViewController {
         pageTransitionStyleRowValue = pageTransitionStyle.rawValue
         addPageVC(with: pageTransitionStyle, textConfig: textConfig)
     }
+    @IBAction func decreaseFontSize(_ sender: UIButton) {
+        saveIndex()
+        
+        var textConfig = removePageVC()
+        textConfig.fontSize = textConfig.fontSize - 1
+        fontSize = textConfig.fontSize
+        let style = UIPageViewController.TransitionStyle(rawValue: pageTransitionStyleRowValue)!
+        addPageVC(with: style, textConfig: textConfig)
+    }
+    @IBAction func increaseFontSize(_ sender: UIButton) {
+    }
     
     //Directory
     @objc func tapMask() {
