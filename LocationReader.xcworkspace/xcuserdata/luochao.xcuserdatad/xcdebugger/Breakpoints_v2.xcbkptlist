@@ -27,8 +27,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "344"
             endingLineNumber = "344"
-            landmarkName = "selectTo(_:)"
-            landmarkType = "7">
+            landmarkName = "LRPageRootViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -75,8 +75,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "300"
             endingLineNumber = "300"
-            landmarkName = "back(_:)"
-            landmarkType = "7">
+            landmarkName = "LRPageRootViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
