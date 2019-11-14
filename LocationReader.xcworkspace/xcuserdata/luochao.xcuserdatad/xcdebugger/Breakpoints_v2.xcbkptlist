@@ -25,10 +25,10 @@
             filePath = "LocationReader/VC/LRPageRootViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "359"
-            endingLineNumber = "359"
-            landmarkName = "close()"
-            landmarkType = "7">
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "LRPageRootViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -41,10 +41,8 @@
             filePath = "LocationReader/VC/LRPageViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
-            landmarkName = "pageViewController(_:viewControllerAfter:)"
-            landmarkType = "7">
+            startingLineNumber = "263"
+            endingLineNumber = "263">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -57,10 +55,8 @@
             filePath = "LocationReader/VC/LRPageViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
-            landmarkName = "pageViewController(_:viewControllerBefore:)"
-            landmarkType = "7">
+            startingLineNumber = "263"
+            endingLineNumber = "263">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -73,10 +69,10 @@
             filePath = "LocationReader/VC/LRPageRootViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298"
-            landmarkName = "pageUpdate(mode:)"
-            landmarkType = "7">
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "LRPageRootViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
