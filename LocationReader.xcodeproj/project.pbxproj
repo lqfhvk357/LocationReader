@@ -112,6 +112,10 @@
 		430A3DD3236C40C400E9615D /* LRSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A3DD2236C40C400E9615D /* LRSettingButton.swift */; };
 		430A3DD6236C6A9000E9615D /* LRDirectoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430A3DD4236C6A9000E9615D /* LRDirectoryCell.swift */; };
 		430A3DD7236C6A9000E9615D /* LRDirectoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 430A3DD5236C6A9000E9615D /* LRDirectoryCell.xib */; };
+		43491A66238770460096DC79 /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 43491A65238770460096DC79 /* test.txt */; };
+		43491A682387710D0096DC79 /* test2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 43491A672387710D0096DC79 /* test2.txt */; };
+		43491A6A2387719F0096DC79 /* 水浒传.txt in Resources */ = {isa = PBXBuildFile; fileRef = 43491A692387719F0096DC79 /* 水浒传.txt */; };
+		43491A6C238781D50096DC79 /* 水浒传gb.txt in Resources */ = {isa = PBXBuildFile; fileRef = 43491A6B238781D50096DC79 /* 水浒传gb.txt */; };
 		436D4872236FEEF200393842 /* jpm.txt in Resources */ = {isa = PBXBuildFile; fileRef = 436D4871236FEEF200393842 /* jpm.txt */; };
 		4385636223672B01007D055D /* LRPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4385636123672B01007D055D /* LRPageViewController.swift */; };
 		4385636423682507007D055D /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4385636323682507007D055D /* Const.swift */; };
@@ -124,7 +128,6 @@
 		439CC1DF23669ED100978E9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 439CC1DD23669ED100978E9F /* Main.storyboard */; };
 		439CC1E123669ED500978E9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439CC1E023669ED500978E9F /* Assets.xcassets */; };
 		439CC1E423669ED500978E9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 439CC1E223669ED500978E9F /* LaunchScreen.storyboard */; };
-		439CC1EC2366A3C900978E9F /* 水浒传.txt in Resources */ = {isa = PBXBuildFile; fileRef = 439CC1EB2366A3C900978E9F /* 水浒传.txt */; };
 		439CC2BF2366BCF300978E9F /* LRTimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CC2BE2366BCF300978E9F /* LRTimeLabel.swift */; };
 		439CC2C22366C43500978E9F /* Miso(1347)0032.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 439CC2C12366C43500978E9F /* Miso(1347)0032.jpg */; };
 		439CC2C52366C9D700978E9F /* LRBookshelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439CC2C42366C9D700978E9F /* LRBookshelfViewController.swift */; };
@@ -240,6 +243,10 @@
 		430A3DD2236C40C400E9615D /* LRSettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRSettingButton.swift; sourceTree = "<group>"; };
 		430A3DD4236C6A9000E9615D /* LRDirectoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRDirectoryCell.swift; sourceTree = "<group>"; };
 		430A3DD5236C6A9000E9615D /* LRDirectoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LRDirectoryCell.xib; sourceTree = "<group>"; };
+		43491A65238770460096DC79 /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
+		43491A672387710D0096DC79 /* test2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test2.txt; sourceTree = "<group>"; };
+		43491A692387719F0096DC79 /* 水浒传.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "水浒传.txt"; sourceTree = "<group>"; };
+		43491A6B238781D50096DC79 /* 水浒传gb.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "水浒传gb.txt"; sourceTree = "<group>"; };
 		436D4871236FEEF200393842 /* jpm.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jpm.txt; sourceTree = "<group>"; };
 		4385636123672B01007D055D /* LRPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRPageViewController.swift; sourceTree = "<group>"; };
 		4385636323682507007D055D /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
@@ -254,7 +261,6 @@
 		439CC1E023669ED500978E9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		439CC1E323669ED500978E9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		439CC1E523669ED500978E9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		439CC1EB2366A3C900978E9F /* 水浒传.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "水浒传.txt"; sourceTree = "<group>"; };
 		439CC2BE2366BCF300978E9F /* LRTimeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRTimeLabel.swift; sourceTree = "<group>"; };
 		439CC2C12366C43500978E9F /* Miso(1347)0032.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Miso(1347)0032.jpg"; sourceTree = "<group>"; };
 		439CC2C42366C9D700978E9F /* LRBookshelfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRBookshelfViewController.swift; sourceTree = "<group>"; };
@@ -419,9 +425,12 @@
 				438563662369BFAC007D055D /* Model */,
 				439CC2C32366C9A000978E9F /* VC */,
 				439CC2C02366BCFC00978E9F /* View */,
-				439CC1EB2366A3C900978E9F /* 水浒传.txt */,
 				436D4871236FEEF200393842 /* jpm.txt */,
+				43491A65238770460096DC79 /* test.txt */,
+				43491A672387710D0096DC79 /* test2.txt */,
 				43E1C991236C849800E88A35 /* 7922.txt */,
+				43491A6B238781D50096DC79 /* 水浒传gb.txt */,
+				43491A692387719F0096DC79 /* 水浒传.txt */,
 				43E1C993236C86ED00E88A35 /* all.txt */,
 				439CC1D723669ED100978E9F /* AppDelegate.swift */,
 				4385636323682507007D055D /* Const.swift */,
@@ -552,6 +561,7 @@
 				430A3D93236B1A0100E9615D /* 67.txt in Resources */,
 				430A3D71236B1A0100E9615D /* 28.txt in Resources */,
 				430A3DBA236B1A0100E9615D /* 47.txt in Resources */,
+				43491A6C238781D50096DC79 /* 水浒传gb.txt in Resources */,
 				430A3DB1236B1A0100E9615D /* 78.txt in Resources */,
 				430A3DA9236B1A0100E9615D /* 69.txt in Resources */,
 				430A3D8A236B1A0100E9615D /* 60.txt in Resources */,
@@ -592,6 +602,7 @@
 				43E1C992236C849800E88A35 /* 7922.txt in Resources */,
 				430A3D7B236B1A0100E9615D /* 04.txt in Resources */,
 				430A3DC5236B1A0100E9615D /* 22.txt in Resources */,
+				43491A66238770460096DC79 /* test.txt in Resources */,
 				430A3D9D236B1A0100E9615D /* 95.txt in Resources */,
 				430A3DB6236B1A0100E9615D /* 91.txt in Resources */,
 				439CC1DF23669ED100978E9F /* Main.storyboard in Resources */,
@@ -635,17 +646,18 @@
 				430A3D7F236B1A0100E9615D /* 11.txt in Resources */,
 				430A3DA6236B1A0100E9615D /* 82.txt in Resources */,
 				430A3DB9236B1A0100E9615D /* 90.txt in Resources */,
+				43491A6A2387719F0096DC79 /* 水浒传.txt in Resources */,
 				430A3D84236B1A0100E9615D /* 63.txt in Resources */,
 				430A3DCB236B1A0100E9615D /* 25.txt in Resources */,
 				430A3DC8236B1A0100E9615D /* 33.txt in Resources */,
 				430A3DA3236B1A0100E9615D /* 83.txt in Resources */,
-				439CC1EC2366A3C900978E9F /* 水浒传.txt in Resources */,
 				430A3DA1236B1A0100E9615D /* 40.txt in Resources */,
 				430A3DB4236B1A0100E9615D /* 52.txt in Resources */,
 				430A3DA8236B1A0100E9615D /* 41.txt in Resources */,
 				430A3D6F236B1A0100E9615D /* 101.txt in Resources */,
 				430A3DC4236B1A0100E9615D /* 36.txt in Resources */,
 				430A3DCE236B1A0100E9615D /* 24.txt in Resources */,
+				43491A682387710D0096DC79 /* test2.txt in Resources */,
 				430A3DC9236B1A0100E9615D /* 27.txt in Resources */,
 				430A3DA7236B1A0100E9615D /* 55.txt in Resources */,
 				430A3DAD236B1A0100E9615D /* 86.txt in Resources */,

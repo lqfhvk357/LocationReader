@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 let DirectoryViewWidth: CGFloat = 268
 let DirectoryTopHeight = CGFloat(ScreenHeight<810 ? 16 : 49)
@@ -107,6 +108,7 @@ class LRPageRootViewController: UIViewController {
         self.pageAnimationSegmentedControl.selectedSegmentIndex =
             pageTransitionStyle == UIPageViewController.TransitionStyle.pageCurl ? 0 : 1
         
+        fontSizeLabel.text = "\(Int(textConfig.fontSize))"
         addPageVC(with: pageTransitionStyle, textConfig: textConfig)
         
         handleView.isHidden = ishiddenHandleView
@@ -298,6 +300,19 @@ class LRPageRootViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func listen(_ sender: UIButton) {
+        let pageVC = self.children.first as! LRPageViewController
+        guard pageVC.children.count > 0 else { return }
+        let bookVC = (pageVC.children.count == 3 ? pageVC.children[1]
+            : pageVC.children[0]) as! LRBooKViewController
+        
+        
+        let speechSynthesizer = AVSpeechSynthesizer()
+        let speechUtterance = AVSpeechUtterance(string: bookVC.pageModel?.text.string ?? "发生了什么")
+        speechUtterance.voice = AVSpeechSynthesisVoice(language: "zh-CN")
+        speechSynthesizer.speak(speechUtterance)
+        
+    }
     //bottom
     @IBAction func directory(_ sender: Any) {
         self.ishiddenHandleView = true
@@ -329,15 +344,28 @@ class LRPageRootViewController: UIViewController {
         addPageVC(with: pageTransitionStyle, textConfig: textConfig)
     }
     @IBAction func decreaseFontSize(_ sender: UIButton) {
+        if fontSize <= 10 {
+            return
+        }
         saveIndex()
-        
         var textConfig = removePageVC()
         textConfig.fontSize = textConfig.fontSize - 1
+        fontSizeLabel.text = "\(Int(textConfig.fontSize))"
         fontSize = textConfig.fontSize
         let style = UIPageViewController.TransitionStyle(rawValue: pageTransitionStyleRowValue)!
         addPageVC(with: style, textConfig: textConfig)
     }
     @IBAction func increaseFontSize(_ sender: UIButton) {
+        if fontSize >= 30 {
+            return
+        }
+        saveIndex()
+        var textConfig = removePageVC()
+        textConfig.fontSize = textConfig.fontSize + 1
+        fontSizeLabel.text = "\(Int(textConfig.fontSize))"
+        fontSize = textConfig.fontSize
+        let style = UIPageViewController.TransitionStyle(rawValue: pageTransitionStyleRowValue)!
+        addPageVC(with: style, textConfig: textConfig)
     }
     
     //Directory

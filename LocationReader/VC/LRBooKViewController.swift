@@ -40,21 +40,37 @@ class LRBooKViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+//        print("11111")
+//        print(self.textView.frame)
+    }
 
     func setup() {
         topHeightConstraint.constant = topMargin
-        
+
         let textView = UITextView()
         textView.backgroundColor = .clear
         self.view.addSubview(textView)
         textView.snp_makeConstraints { make in
             make.edges.equalTo(spaceView)
         }
+//        textView.textContainerInset = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: -5);
+        textView.textContainerInset = .zero
+        textView.textContainer.lineFragmentPadding = 0
+        textView.isEditable = false
+        textView.scrollsToTop = false
+        textView.isScrollEnabled = false
+        textView.isSelectable = false
         self.textView = textView
-        self.textView.isUserInteractionEnabled = false
+        
+        
         
         if let pageModel = pageModel {
+//            textView.textStorage.append(pageModel.text)
             textView.attributedText = pageModel.text
+
             pageLabel.text = pageModel.page
             chaptersLabel.text = pageModel.chapter
         }
