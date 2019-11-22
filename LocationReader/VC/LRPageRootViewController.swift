@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 let DirectoryViewWidth: CGFloat = 268
 let DirectoryTopHeight = CGFloat(ScreenHeight<810 ? 16 : 49)
@@ -34,14 +35,11 @@ class LRPageRootViewController: UIViewController {
     
     //settingView
     @IBOutlet weak var settingView: UIView!
-    @IBOutlet weak var decreaseFontSizeButton: UIButton!
-    @IBOutlet weak var increaseFontSizeButton: UIButton!
     @IBOutlet weak var fontSizeLabel: UILabel!
     @IBOutlet weak var fontSizeView: UIView!
-    @IBOutlet weak var decreaseLineMarginButton: UIButton!
-    @IBOutlet weak var increaseLineMarginButton: UIButton!
-    @IBOutlet weak var lineMarginLabel: UILabel!
-    @IBOutlet weak var lineMarginView: UIView!
+
+    @IBOutlet weak var lineSpacingLabel: UILabel!
+    @IBOutlet weak var lineSpacingView: UIView!
     @IBOutlet weak var backColorCollectionView: UICollectionView!
     @IBOutlet weak var pageAnimationSegmentedControl: UISegmentedControl!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
@@ -55,12 +53,13 @@ class LRPageRootViewController: UIViewController {
     let directoryBeginTransform = CGAffineTransform(translationX: -DirectoryViewWidth, y: 0)
     let settingBeginTransform = CGAffineTransform(translationX: 0, y: SettingViewHeight)
     
-    let ModeNumKey = "ModeNumKey"
-    let PageAnimationKey = "PageAnimationKey"
+    @UserDefault(key: "ModeNumKey", defaultValue: 0) var modeNum: Int
+    @UserDefault(key: "FontSizeKey", defaultValue: 16) var fontSize: CGFloat
+    @UserDefault(key: "LineSpacingKey", defaultValue: 2) var lineSpacing: CGFloat
+    @UserDefault(key: "PageTransitionStyleRowValueKey", defaultValue: 0) var pageTransitionStyleRowValue: Int
+    
     let modes: [Mode] = [.dayMode0, .dayMode1, .dayMode2, .dayMode3, .dayMode4, .dayMode5, .dayMode6, .dayMode7, .dayMode8]
-//    var modeNum = 0
-    
-    
+
     var ishiddenHandleView = true {
         didSet {
             updateHandleHidden(isHedden: ishiddenHandleView)
@@ -101,15 +100,15 @@ class LRPageRootViewController: UIViewController {
     
     // MARK: - View
     func setup() {
-        let modeNum = readModeNum()
         nightButton.isSelected = modeNum < 0
         let mode = modeNum < 0 ? Mode.darkMode : modes[modeNum]
         let textConfig = LRTextConfig(mode: mode)
         
-        let pageTransitionStyle = readPageTransitionStyle()
+        let pageTransitionStyle = UIPageViewController.TransitionStyle(rawValue: pageTransitionStyleRowValue)!
         self.pageAnimationSegmentedControl.selectedSegmentIndex =
             pageTransitionStyle == UIPageViewController.TransitionStyle.pageCurl ? 0 : 1
         
+        fontSizeLabel.text = "\(Int(textConfig.fontSize))"
         addPageVC(with: pageTransitionStyle, textConfig: textConfig)
         
         handleView.isHidden = ishiddenHandleView
@@ -144,10 +143,10 @@ class LRPageRootViewController: UIViewController {
         self.fontSizeView.layer.borderWidth = 1
         self.fontSizeView.layer.borderColor = UIColor.systemBackground.cgColor
         
-        self.lineMarginView.layer.cornerRadius = 5
-        self.lineMarginView.clipsToBounds = true
-        self.lineMarginView.layer.borderWidth = 1
-        self.lineMarginView.layer.borderColor = UIColor.systemBackground.cgColor
+        self.lineSpacingView.layer.cornerRadius = 5
+        self.lineSpacingView.clipsToBounds = true
+        self.lineSpacingView.layer.borderWidth = 1
+        self.lineSpacingView.layer.borderColor = UIColor.systemBackground.cgColor
         
         self.backColorCollectionView.lc_registerNibCell(cellClass: LRColorCell.self)
         self.flowLayout.estimatedItemSize = .zero
@@ -191,26 +190,25 @@ class LRPageRootViewController: UIViewController {
         return dict
     }
     
-    func save(modeNum: Int) {
-        UserDefaults.standard.set(modeNum, forKey: ModeNumKey)
+    func readTextConfig() -> LRTextConfig {
+        let mode = modeNum < 0 ? Mode.darkMode : modes[modeNum]
+        
+//        let pageTransitionStyle = readPageTransitionStyle()
+        return LRTextConfig(mode: mode)
     }
     
-    func readModeNum() -> Int {
-        if let num = UserDefaults.standard.value(forKey: ModeNumKey) as? Int {
-            return num
+    func saveIndex() {
+        guard let currentIndexKey = IndexPathKey(for: bookName) else {
+            return
         }
-        return 0
-    }
-    
-    func readPageTransitionStyle() -> UIPageViewController.TransitionStyle {
-        if let rowValue = UserDefaults.standard.value(forKey: PageAnimationKey) as? Int{
-            return UIPageViewController.TransitionStyle(rawValue: rowValue)!
-        }
-        return .pageCurl
-    }
-    
-    func save(pageTransitionStyle: UIPageViewController.TransitionStyle) {
-        UserDefaults.standard.set(pageTransitionStyle.rawValue, forKey: PageAnimationKey)
+        
+        let pageVC = self.children.first as! LRPageViewController
+        guard pageVC.children.count > 0 else { return }
+        let bookVC = (pageVC.children.count == 3 ? pageVC.children[1]
+            : pageVC.children[0]) as! LRBooKViewController
+        
+        let dict = dictionaryFrom(indexPath: bookVC.indexPath!)
+        UserDefaults.standard.set(dict, forKey: currentIndexKey)
     }
     
     // MARK: - Private
@@ -273,19 +271,7 @@ class LRPageRootViewController: UIViewController {
         }
     }
 
-    func saveIndex() {
-        guard let currentIndexKey = IndexPathKey(for: bookName) else {
-            return
-        }
-        
-        let pageVC = self.children.first as! LRPageViewController
-        guard pageVC.children.count > 0 else { return }
-        let bookVC = (pageVC.children.count == 3 ? pageVC.children[1]
-            : pageVC.children[0]) as! LRBooKViewController
-        
-        let dict = dictionaryFrom(indexPath: bookVC.indexPath!)
-        UserDefaults.standard.set(dict, forKey: currentIndexKey)
-    }
+
     
     func pageUpdate(mode: Mode) {
         let pageVc = self.children.first as! LRPageViewController
@@ -311,12 +297,22 @@ class LRPageRootViewController: UIViewController {
     // top
     @IBAction func back(_ sender: Any) {
         saveIndex()
-        let pageVc = self.children.first as! LRPageViewController
-        save(pageTransitionStyle: pageVc.transitionStyle)
-        
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func listen(_ sender: UIButton) {
+        let pageVC = self.children.first as! LRPageViewController
+        guard pageVC.children.count > 0 else { return }
+        let bookVC = (pageVC.children.count == 3 ? pageVC.children[1]
+            : pageVC.children[0]) as! LRBooKViewController
+        
+        
+        let speechSynthesizer = AVSpeechSynthesizer()
+        let speechUtterance = AVSpeechUtterance(string: bookVC.pageModel?.text.string ?? "发生了什么")
+        speechUtterance.voice = AVSpeechSynthesisVoice(language: "zh-CN")
+        speechSynthesizer.speak(speechUtterance)
+        
+    }
     //bottom
     @IBAction func directory(_ sender: Any) {
         self.ishiddenHandleView = true
@@ -324,13 +320,12 @@ class LRPageRootViewController: UIViewController {
     }
     
     @IBAction func night(_ sender: LRSettingButton) {
-        let modeNum = readModeNum()
         let newModeNum = -(modeNum+1)
         
         sender.isSelected = newModeNum < 0
         let mode = newModeNum < 0 ? .darkMode : modes[newModeNum]
         
-        save(modeNum: newModeNum)
+        modeNum = newModeNum
         pageUpdate(mode: mode)
     }
     
@@ -341,13 +336,36 @@ class LRPageRootViewController: UIViewController {
     }
     @IBAction func selectPageAnimation(_ sender: UISegmentedControl) {
         saveIndex()
-        let textConfig = removePageVC()
         
-        if sender.selectedSegmentIndex == 0 {
-            addPageVC(with: .pageCurl, textConfig: textConfig)
-        }else {
-            addPageVC(with: .scroll, textConfig: textConfig)
+        let textConfig = removePageVC()
+        let pageTransitionStyle: UIPageViewController.TransitionStyle =
+            sender.selectedSegmentIndex == 0 ? .pageCurl : .scroll
+        pageTransitionStyleRowValue = pageTransitionStyle.rawValue
+        addPageVC(with: pageTransitionStyle, textConfig: textConfig)
+    }
+    @IBAction func decreaseFontSize(_ sender: UIButton) {
+        if fontSize <= 10 {
+            return
         }
+        saveIndex()
+        var textConfig = removePageVC()
+        textConfig.fontSize = textConfig.fontSize - 1
+        fontSizeLabel.text = "\(Int(textConfig.fontSize))"
+        fontSize = textConfig.fontSize
+        let style = UIPageViewController.TransitionStyle(rawValue: pageTransitionStyleRowValue)!
+        addPageVC(with: style, textConfig: textConfig)
+    }
+    @IBAction func increaseFontSize(_ sender: UIButton) {
+        if fontSize >= 30 {
+            return
+        }
+        saveIndex()
+        var textConfig = removePageVC()
+        textConfig.fontSize = textConfig.fontSize + 1
+        fontSizeLabel.text = "\(Int(textConfig.fontSize))"
+        fontSize = textConfig.fontSize
+        let style = UIPageViewController.TransitionStyle(rawValue: pageTransitionStyleRowValue)!
+        addPageVC(with: style, textConfig: textConfig)
     }
     
     //Directory
@@ -412,7 +430,7 @@ extension LRPageRootViewController: UICollectionViewDataSource, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         nightButton.isSelected = false
-        save(modeNum: indexPath.item)
+        modeNum = indexPath.item
         pageUpdate(mode: modes[indexPath.item])
     }
 }

@@ -9,9 +9,13 @@
 import UIKit
 
 struct LRTextConfig {
-    var font: UIFont = UIFont(name: "PingFangTC-Regular", size: 16)!
-//    var font: UIFont = .systemFont(ofSize: 16)!
+    var fontSize: CGFloat = 16
     
+    var font: UIFont {
+        UIFont(name: "PingFangTC-Regular", size: fontSize)!
+//        UIFont.systemFont(ofSize: fontSize)
+    }
+    var lineSpacing: CGFloat = 2
     var mode: Mode = .dayMode0
 }
 
@@ -93,6 +97,7 @@ class LRPageViewController: UIPageViewController {
         let encoding = String.Encoding.utf8
         chapters = getChapters(encoding: encoding)
         if chapters.count == 0 {
+            //GB2312在分页的时候(layoutM.textContainer(forGlyphAt: index, effectiveRange: &range))有错误,暂时没解决!
             let otherEncoding = String.Encoding(rawValue: CFStringConvertEncodingToNSStringEncoding(CFStringEncoding(CFStringEncodings.GB_18030_2000.rawValue)))
             chapters = getChapters(encoding: otherEncoding)
             guard chapters.count > 0 else {
@@ -102,6 +107,11 @@ class LRPageViewController: UIPageViewController {
         
         
         popChapters(at: currentIndexPath.section)
+        
+        let count = textArray["\(currentIndexPath.section)"]!.count
+        if currentIndexPath.item >= count {
+            currentIndexPath.item = count - 1
+        }
         let bookVC = setupBookVC(at: currentIndexPath)
         self.setViewControllers([bookVC], direction: .forward, animated: true, completion: nil)
         // Do any additional setup after loading the view.
@@ -138,8 +148,9 @@ class LRPageViewController: UIPageViewController {
         guard let content = try? String(contentsOfFile: filePath, encoding: encoding) else {
             return []
         }
-        contentString = NSString(string: content)
 
+        contentString = NSString(string: content)
+        
         let chaptersPath = "\(documentsPath)/\(bookName)_chapters.plist"
         let fm = FileManager.default
         if fm.fileExists(atPath: chaptersPath) {
@@ -196,6 +207,8 @@ class LRPageViewController: UIPageViewController {
         let range = NSRangeFromString(rangeString)
         let text = contentString.substring(with: range)
         let textStorage = NSTextStorage(string: text)
+        
+        
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 2
         let attributes:[NSAttributedString.Key: Any] = [
@@ -203,21 +216,37 @@ class LRPageViewController: UIPageViewController {
             .font: textConfig.font,
             .foregroundColor: textConfig.mode.color
         ]
+        
+//        let string = NSAttributedString(string: "1234566", attributes: attributes)
+//        let size = CGSize(width: 100, height: CGFloat.greatestFiniteMagnitude)
+//        let ract = string.boundingRect(with: size, options: [.usesLineFragmentOrigin], context: nil)
+//        print(ract)
+        
+        
+        
+        
         textStorage.setAttributes(attributes, range: NSRange(location: 0, length: text.count))
         let layoutM = NSLayoutManager()
+        
         textStorage.addLayoutManager(layoutM)
         
         let lineH = getOneLineHeight(with: "超哥", attributes: attributes)
         print(lineH)
-        let heigth = ScreenHeight - topMargin - bottomMargin - lineH*0.5
+        let heigth = ScreenHeight - topMargin - bottomMargin - 10
         let width = ScreenWidth - 8 * 2
         
         var pages = [LRPageModel]()
+        var index = 0
+        
         
         while true {
             let textContainer = NSTextContainer(size: CGSize(width: width, height: heigth))
+            textContainer.lineFragmentPadding = 0
             layoutM.addTextContainer(textContainer)
-            let range = layoutM.glyphRange(for: textContainer)
+            var range = NSRange(location: 0, length: 0)
+            layoutM.textContainer(forGlyphAt: index, effectiveRange: &range)
+            index = NSMaxRange(range)
+            print("range --- \(range)")
             if range.length <= 0 {
                 for i in 0..<pages.count {
                     let page = "\(i+1)/\(pages.count)页"
@@ -243,7 +272,7 @@ class LRPageViewController: UIPageViewController {
         let textStorage = NSTextStorage(string: text, attributes: attributes)
         let layoutManager = NSLayoutManager()
         textStorage.addLayoutManager(layoutManager)
-        let textContainer = NSTextContainer(size: CGSize(width: 1000, height: 100))
+        let textContainer = NSTextContainer(size: CGSize(width: 100, height: 100))
         layoutManager.addTextContainer(textContainer)
         let height = layoutManager.boundingRect(forGlyphRange: NSRange(location: 0, length: text.count), in: textContainer).size.height
         return height
